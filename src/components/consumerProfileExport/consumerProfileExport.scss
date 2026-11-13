@@ -1,0 +1,43 @@
+.title {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 10pt;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 10mm;
+  letter-spacing: 0;
+}
+
+.bold-value {
+  font-weight: 300;
+}
+
+.date-line {
+  font-size: 10pt;
+  font-weight: 400;
+  margin-bottom: 20mm;
+}
+
+.detailContainer {
+  display: flex;
+  // flex: 1;
+  border: 1px solid #0000002b;
+  border-radius: 10px;
+  position: relative
+}
+
+.detailTitle {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  z-index: 1000;
+  background-color: #fff;
+  line-height: 15px;
+  padding: 0px 10px;
+}
+
+.imgContainer {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 100%;
+  width: 100%,
+}

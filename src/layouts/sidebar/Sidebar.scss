@@ -1,0 +1,176 @@
+.sidebar {
+  height: 90vh;
+  overflow: auto;
+  box-sizing: border-box;
+  background: linear-gradient(45deg, #9159ff, #9c6aff);
+  padding: 15px;
+  width: 100%;
+
+  &.fixed {
+    top: 0px;
+    height: 100vh;
+    left: -100%;
+    z-index: 200;
+    position: fixed;
+    width: 50%;
+    transition: all 500ms ease-in-out;
+  }
+
+  &.sideMenu {
+    top: 0px;
+    height: 90vh;
+    left: -20%;
+    width: 100%;
+  }
+
+
+  &.show {
+    left: 0%;
+  }
+
+  .searchInput {
+    border: 1px solid #ffffff30;
+    background-color: #ffffff12;
+    color: #dbe1ec;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex: 1;
+    outline: none;
+  }
+
+  .searchInput:focus {
+    outline: none;
+    box-shadow: none;
+    /* agar koi shadow aati hai */
+    border-color: #fff;
+    /* agar border color change hota hai */
+  }
+
+  .navMainText {
+    margin: 5px 0px 0.35em;
+    font-family: Roboto, sans-serif;
+    line-height: 1.66;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // color: rgb(18, 25, 38);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 5px;
+    text-transform: none;
+    border-radius: 8px;
+
+    img {
+      width: 25px;
+      object-fit: contain;
+    }
+
+  }
+
+  .logoContainer {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px 30px;
+
+    img {
+      height: 100px;
+      object-fit: contain;
+    }
+  }
+
+  .menuList {
+    padding-left: 5px;
+
+    li {
+      list-style-type: none;
+      margin-bottom: 8px;
+
+      a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: rgb(7, 7, 8);
+
+        img {
+          width: 25px;
+          margin-right: 10px;
+        }
+
+        .navText {
+          color: #fff;
+          border-left: 1px solid #ffffff40;
+          padding: 0px 5px;
+
+        }
+
+
+        &.active {
+          .navText {
+            width: 100%;
+            padding: 0px 5px;
+            color: #fff;
+            border-radius: 4px;
+            border-left: 1px solid #dbe1ec;
+            background-color: #ffffff15;
+            font-weight: 500;
+          }
+
+
+
+        }
+      }
+
+      &:has(a.active)::marker {
+        color: #fff;
+        ;
+      }
+    }
+  }
+
+  &.small {
+    padding: 5px;
+
+    .menuList {
+      padding-left: 10px;
+
+      li {
+        a {
+          margin-bottom: 10px;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            width: 25px;
+            margin: 0px;
+          }
+
+          &.active {
+            background-color: #fff;
+            padding: 5px;
+
+            img {
+              width: 25px
+            }
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 0px;
+  /* Remove scrollbar width */
+  background: transparent;
+  /* Hide scrollbar background */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  display: none;
+  /* Hide scrollbar thumb */
+}

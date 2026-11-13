@@ -1,0 +1,54 @@
+.searchPermissionBar {
+  width: 60%;
+  padding: 0px 0px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: space-between;
+  background: rgb(237, 231, 246);
+  margin: 2px 0px 0px;
+
+  .collapseableContainer {
+    padding: 6px 10px;
+    text-transform: uppercase;
+    text-align: left;
+    color: #5f1ce3;
+
+  }
+
+  .optionLabel {
+    padding: 6px 10px;
+    text-decoration: underline;
+  }
+}
+
+.toggleContainerBar {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  margin: 5px 0px;
+}
+
+.childPermissionContainer {
+  padding: 5px;
+  margin-left: 50px;
+  // max-height: 30vh;
+  // overflow: auto;
+  // padding: 5px;
+  // border:2px solid rgb(237, 231, 246)
+}
+
+
+// .childContainer::-webkit-scrollbar {
+//   width: 0px;
+//   /* Remove scrollbar width */
+//   background: transparent;
+//   /* Hide scrollbar background */
+// }
+
+// .childContainer::-webkit-scrollbar-thumb {
+//   display: none;
+//   /* Hide scrollbar thumb */
+// }

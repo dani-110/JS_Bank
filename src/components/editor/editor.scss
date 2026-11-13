@@ -1,0 +1,65 @@
+.previewMainView {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 1000;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex: 1;
+    justify-content: right;
+
+    .previewContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .closeBtnContainer {
+        position: absolute;
+        top: 0px;
+        right: 200px;
+        z-index: 1000;
+        background: #fff;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+        border-radius: 100px;
+    }
+
+    .previewMobileContainer {
+        width: 390px;
+        height: 844px;
+        border-radius: 30px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+        padding: 15px;
+        outline: 3px solid #ddd;
+        transform: scale(0.9);
+        transform-origin: center;
+        background: #fff
+    }
+
+    .topNotch {
+        height: 20px;
+        background: #000;
+        width: 120px;
+        border-radius: 100px;
+    }
+
+    .bottomBarContainer {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+
+        .bottomBar {
+            height: 10px;
+            background: #ddd;
+            width: 250px;
+            border-radius: 100px;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+.merchantLienCheckerContainer {
+    border: 2px solid rgb(145, 89, 255);
+    padding: 10px;
+    border-radius: 10px;
+    flex: 1;
+    margin: 10px 0px;
+}
+
+.merchantLienCheckerHeaderContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+
+    .title {
+        // background: rgb(145, 89, 255);
+        color: rgb(145, 89, 255);
+        padding: 0px 10px;
+        border-radius: 10px;
+    }
+
+    .type {
+        position: absolute;
+        right: 0;
+
+        .tag {
+            background: #ede7f6;
+            padding: 10px;
+            color: rgb(94, 53, 177);
+            border-radius: 10px;
+        }
+    }
+}

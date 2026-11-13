@@ -1,0 +1,14 @@
+.fileUploadContainer {
+    border-radius: 16px;
+    border: 2px solid #d1d5dc;
+    border-style: dashed;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &:hover {
+        border: 2px solid #99a1af;
+        border-style: dashed;
+    }
+}

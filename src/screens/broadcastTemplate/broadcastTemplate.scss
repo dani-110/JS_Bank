@@ -1,0 +1,91 @@
+.emailFormContainer {
+    border: 3px solid rgb(145, 89, 255);
+    padding: 10px;
+    border-radius: 10px;
+    flex: 1;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.editorRightArea {
+    flex: 2;
+    border: 1px solid rgb(145, 89, 255);
+    border-radius: 10px;
+    margin-right: 5px;
+    display: flex;
+    padding: 10px;
+
+    .selector {
+        flex: 1;
+        padding: 10px;
+        display: flex;
+        flex-direction: column
+    }
+
+    .selectorList {
+        width: 90%;
+        flex: 1;
+        resize: none;
+        overflow: auto;
+        flex-basis: 0px
+    }
+
+    .textArea {
+        flex: 3;
+        padding: 10px;
+        display: flex;
+
+        .input {
+            flex: 1;
+            font-size: 16px;
+            justify-content: flex-start;
+            align-items: flex-start;
+            border: none;
+            outline: none;
+            resize: none;
+            overflow: auto;
+        }
+    }
+
+
+}
+
+.preview {
+    flex: 1;
+    border: 1px solid rgb(145, 89, 255);
+    border-radius: 10px;
+    margin-left: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .previewArea {
+        flex: 1;
+        resize: none;
+        flex-basis: 0px;
+        overflow: auto
+    }
+}
+
+.modeSelection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    margin: 10px 0px;
+    box-shadow: rgba(177, 143, 245, 0.5) 0px 2px 8px;
+    border-radius: 5px;
+    flex-direction: column;
+    overflow: hidden;
+
+    &.selected {
+        background: rgba(177, 143, 245);
+    }
+}
+
+.modeSelection:hover {
+    background: rgba(177, 143, 245, 0.5);
+}

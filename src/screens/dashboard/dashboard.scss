@@ -1,0 +1,27 @@
+.dashboardContainer {
+    height: 100%;
+    display: flex;
+    padding: 20px;
+    overflow: hidden;
+
+    
+
+}
+.portionContainer {
+    display: 'flex';
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+}
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    justify-content: center;
+    img {
+        height: 100px;
+        width: 100px;
+    }
+}
