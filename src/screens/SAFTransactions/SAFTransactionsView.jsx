@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import View from '../../components/view';
 import { filterName } from '../../utils/Utils';
 import { useSelector } from 'react-redux';
+import { Box, Divider, Grid, Typography } from '@mui/material';
+import ResponseCode from '../../components/responseCode/responseCode';
 
 const SAFTransactionsView = (props) => {
     const { data } = props
@@ -17,7 +19,7 @@ const SAFTransactionsView = (props) => {
     const filterValue = (list, id) => {
         return list?.find(val => val?.value == id)?.label || ""
     }
-    
+
     useEffect(() => {
         console.log(data)
         let obj = { ...data }
@@ -44,15 +46,12 @@ const SAFTransactionsView = (props) => {
         "Account Number To",
         "To Bank IMD",
         "From Bank IMD",
-        "Re Transmit Counts",
         "Beneficiary Bank Name",
         "Sender Name",
         "Sender IBAN",
         "Account Title",
         "Merchant Type",
         "Response Code",
-        "Retries",
-        "SAF Status",
         "Transaction",
     ]
     const verifyParam = [
@@ -71,18 +70,38 @@ const SAFTransactionsView = (props) => {
         "accountnumberto",
         "tobankimd",
         "frombankimd",
-        "retransmitcounts",
         "beneficiarybankname",
         "sendername",
         "senderiban",
         "accounttitle",
         "merchanttype",
         "respcodeValue",
-        "retries",
-        "safstatus",
         "reqcodeValue",
     ]
-    return <View viewFields={viewFields} viewData={objView} verifyParam={verifyParam} />
+
+    const SAFField = [
+        "SAF Status",
+        "Re Transmit Counts",
+        "Retries",
+    ]
+    const SAFParam = [
+        "safstatus",
+        "retransmitcounts",
+        "retries",
+    ]
+    return <>
+        <Typography variant='h2' sx={{ margin: '10px', textAlign: 'left', fontWeight: '500' }}>{objView['reqcodeValue']}</Typography>
+        <Typography variant="body1" sx={{ textAlign: 'left', margin: '10px 10px 20px', }} color={'#617088'}>{objView['transactionid']}</Typography>
+        <Box sx={{ margin: '10px' }}>
+            <ResponseCode value={objView['respcodeValue']} />
+        </Box>
+        <Divider sx={{ margin: '10px', bgcolor: '#617088' }} />
+        <Typography variant="body1" sx={{ textAlign: 'left', margin: '10px 10px 20px' }}>Transaction Information</Typography>
+        <View viewFields={viewFields} viewData={objView} verifyParam={verifyParam} />
+        <Divider sx={{ margin: '10px', bgcolor: '#617088' }} />
+        <Typography variant="body1" sx={{ textAlign: 'left', margin: '10px 10px 20px' }}>SAF Processing</Typography>
+        <View viewFields={SAFField} viewData={objView} verifyParam={SAFParam} />
+    </>
 
 }
 export default SAFTransactionsView;

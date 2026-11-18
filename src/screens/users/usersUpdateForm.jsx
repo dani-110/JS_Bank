@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, CircularProgress, Grid, IconButton } from "@mui/material";
+import { Box, Button, CircularProgress, Divider, Grid, IconButton, Typography } from "@mui/material";
 import Card from "../../components/card/Card";
 import InputFields from "../../components/InputFields";
 import ButtonContainer from "../../components/buttonContainer";
@@ -136,153 +136,165 @@ const UsersUpdateForm = (props) => {
         },
     ]
 
-    return <form>
-        <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-                <InputFields
-                    fieldName="firstname"
-                    type="text"
-                    label="First Name"
-                    control={control}
-                    rules={{
-                        required: "First Name is required",
-                    }}
-                    error={errors?.firstname}
-                />
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <InputFields
-                    fieldName="lastname"
-                    type="text"
-                    label="Last Name"
-                    control={control}
-                />
-            </Grid>
-            {type !== 'Edit' && <>
+    return <>
+        <Typography variant='h2' sx={{ margin: '10px', textAlign: 'left', fontWeight: '500' }}>{'Edit user'}</Typography>
+        <Typography variant="body1" sx={{ textAlign: 'left', margin: '10px 10px 20px', }} color={'#617088'}>{data['username']}</Typography>
+        <form style={{ padding: '10px' }}>
+            <Grid container spacing={2} >
                 <Grid item xs={12} md={6}>
                     <InputFields
-                        fieldName="username"
+                        fieldName="firstname"
                         type="text"
-                        label="Username"
+                        label="First Name"
                         control={control}
                         rules={{
-                            required: "Username is required",
+                            required: "First Name is required",
                         }}
-                        error={errors?.username}
+                        error={errors?.firstname}
                     />
                 </Grid>
-
                 <Grid item xs={12} md={6}>
                     <InputFields
-                        fieldName="password"
-                        type={showPassword ? "text" : "password"}
-                        label="Password"
+                        fieldName="lastname"
+                        type="text"
+                        label="Last Name"
                         control={control}
-                        error={errors.password}
-                        inputProps={{
-                            endAdornment: (
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    {showPassword ? <AiFillEyeInvisible color={theme.palette.textColor} /> : <AiFillEye color={theme.palette.textColor} />}
-                                </IconButton>
-                            ),
-                        }}
                     />
                 </Grid>
+                {type !== 'Edit' && <>
+                    <Grid item xs={12} md={6}>
+                        <InputFields
+                            fieldName="username"
+                            type="text"
+                            label="Username"
+                            control={control}
+                            rules={{
+                                required: "Username is required",
+                            }}
+                            error={errors?.username}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <InputFields
+                            fieldName="password"
+                            type={showPassword ? "text" : "password"}
+                            label="Password"
+                            control={control}
+                            error={errors.password}
+                            inputProps={{
+                                endAdornment: (
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? <AiFillEyeInvisible color={theme.palette.textColor} /> : <AiFillEye color={theme.palette.textColor} />}
+                                    </IconButton>
+                                ),
+                            }}
+                        />
+                    </Grid>
 
 
 
+                    <Grid item xs={12} md={6}>
+                        <SelectFields
+                            fieldName="isnotification"
+                            label="Notification Allowed"
+                            control={control}
+                            options={notificationAllowed.map(({ label, value }) => {
+                                return { label, value };
+                            })}
+                        />
+                    </Grid>
+                </>}
+                <Grid item xs={12} md={6}>
+                    <InputFields
+                        fieldName="email"
+                        type="text"
+                        label="Email"
+                        control={control}
+                        pattern={emailRegex}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <InputFields
+                        fieldName="mobileno"
+                        type="text"
+                        label="Mobile No"
+                        control={control}
+                        pattern={numberRegex}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <InputFields
+                        fieldName="employeeid"
+                        type="text"
+                        label="Employee ID"
+                        control={control}
+                        pattern={numberRegex}
+                    />
+                </Grid>
                 <Grid item xs={12} md={6}>
                     <SelectFields
-                        fieldName="isnotification"
-                        label="Notification Allowed"
+                        fieldName="status"
+                        label="Status"
                         control={control}
-                        options={notificationAllowed.map(({ label, value }) => {
+                        options={status.map(({ label, value }) => {
                             return { label, value };
                         })}
                     />
                 </Grid>
-            </>}
-            <Grid item xs={12} md={6}>
-                <InputFields
-                    fieldName="email"
-                    type="text"
-                    label="Email"
-                    control={control}
-                    pattern={emailRegex}
-                />
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <InputFields
-                    fieldName="mobileno"
-                    type="text"
-                    label="Mobile No"
-                    control={control}
-                    pattern={numberRegex}
-                />
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <InputFields
-                    fieldName="employeeid"
-                    type="text"
-                    label="Employee ID"
-                    control={control}
-                    pattern={numberRegex}
-                />
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <SelectFields
-                    fieldName="status"
-                    label="Status"
-                    control={control}
-                    options={status.map(({ label, value }) => {
-                        return { label, value };
-                    })}
-                />
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <SelectFields
-                    fieldName="departmentid"
-                    label="Department"
-                    control={control}
-                    options={departmentFilter.map(({ displayvalue, codevalue }) => {
-                        return { label: displayvalue, value: codevalue };
-                    })}
-                    rules={{
-                        required: "Department is required",
-                    }}
-                    error={errors?.departmentid}
-                />
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <SelectFields
-                    fieldName="roleid"
-                    label="Role"
-                    control={control}
-                    options={uiroleFilter.map(({ displayvalue, codevalue }) => {
-                        return { label: displayvalue, value: codevalue };
-                    })}
-                    rules={{
-                        required: "Role is required",
-                    }}
-                    error={errors?.roleid}
-                />
-            </Grid>
+                <Grid item xs={12} md={6}>
+                    <SelectFields
+                        fieldName="departmentid"
+                        label="Department"
+                        control={control}
+                        options={departmentFilter.map(({ displayvalue, codevalue }) => {
+                            return { label: displayvalue, value: codevalue };
+                        })}
+                        rules={{
+                            required: "Department is required",
+                        }}
+                        error={errors?.departmentid}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <SelectFields
+                        fieldName="roleid"
+                        label="Role"
+                        control={control}
+                        options={uiroleFilter.map(({ displayvalue, codevalue }) => {
+                            return { label: displayvalue, value: codevalue };
+                        })}
+                        rules={{
+                            required: "Role is required",
+                        }}
+                        error={errors?.roleid}
+                    />
+                </Grid>
 
-            <Grid item xs={12}>
-                <ButtonContainer isSingle>
-                    <Button size="medium" variant="contained" color="primary" disabled={isLoading}
-                        onClick={handleSubmit(submit)}>
-                        {isLoading && (
-                            <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
-                        )}
-                        Save</Button>
-                </ButtonContainer>
+                <Grid item xs={12}>
+                    <Divider sx={{ margin: '10px', bgcolor: '#617088' }} />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <ButtonContainer >
+                        <Button size="medium" variant="outlined" color="secondary" disabled={isLoading}
+                            onClick={() => setOpen(false)}>
+                            Cancel</Button>
+                        <Button size="medium" variant="contained" color="secondary" disabled={isLoading}
+                            onClick={handleSubmit(submit)}>
+                            {isLoading && (
+                                <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
+                            )}
+                            Save</Button>
+                    </ButtonContainer>
+                </Grid>
             </Grid>
-        </Grid>
-    </form>
+        </form>
+
+    </>
 };
 
 export default UsersUpdateForm;

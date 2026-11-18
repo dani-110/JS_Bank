@@ -1,241 +1,449 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Card from '../../components/card/Card';
-import { Box, Button, CircularProgress, Grid, IconButton, Typography, useMediaQuery } from '@mui/material';
-import InputFields from '../../components/InputFields';
-import { useForm } from 'react-hook-form';
-import './login.scss'
-import Logo from '../../assests/qubitsFill.png'
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useTheme } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/actions/auth';
-import { saveVersion, setIsLogin } from '../../store/reducers/auth-slice';
-import { alphanumericWithPointRegex, fetchPublicKey } from '../../utils/Utils';
-import { actstatusfilter, applanguagefilter, channelfilter, cityfilter, configfilter, countryfilter, requestfilter, currencyfilter, departmentfilter, districtfilter, mccfilter, poolactfilter, respcodefilter, riskfilter, statefilter, employeefilter, businessnaturefilter, merchantindicatorfilter, partnertypefilter, legalentityfilter, relationacqfilter, telecomfilter, notificationtoken, faqcategory, soccategory, merchanttype, getdeclinereason, getkycstagestatus, getkycprocstage, getwalletlevels, getdevicestatus, getcompliancetransactionnames, getsafstatus, getreportformats, getbillertype, getauditeventtypes, getauditmoduletypes, getrequestelements, getservicename, getrequestmanualadjustment, allfilters } from '../../store/actions/filter';
-import { uiActions } from '../../store/reducers/ui-slice';
-import { getconfig } from '../../store/actions/systemParameter';
+import { useState } from "react";
 
-const Login = () => {
-    const isMobile = useMediaQuery('(max-width:600px)');
-    const theme = useTheme()
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false)
-    const [showPassword, setShowPassword] = React.useState(false);
-    const defaultValues = useForm({
-        defaultValues: {
-            username: "",
-            password: ""
+import {
+  Box,
+  Button,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  Typography,
+  useTheme,
+} from "@mui/material";
+
+import {
+  AiOutlineMail,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineArrowRight,
+  AiOutlineBarChart,
+  AiOutlineSafety,
+  AiOutlineUser,
+  AiOutlineLock,
+  AiOutlineArrowLeft,
+} from "react-icons/ai";
+
+import { SlEnergy } from "react-icons/sl";
+import { TbUsers } from "react-icons/tb";
+
+import { useForm } from "react-hook-form";
+
+import dashboardImage from "../../assests/qubits_dashboard.png";
+import logoImage from "../../assests/logo.png";
+
+import "./login.scss";
+import InputFields from "../../components/InputFields";
+import { useDispatch } from "react-redux";
+import { fetchPublicKey } from "../../utils/Utils";
+import { login } from "../../store/actions/auth";
+import { allfilters } from "../../store/actions/filter";
+import { getconfig } from "../../store/actions/systemParameter";
+import { saveVersion, setIsLogin } from "../../store/reducers/auth-slice";
+import { uiActions } from "../../store/reducers/ui-slice";
+
+const Email = {
+  required: "Email address is required",
+  pattern: {
+    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    message: "Enter a valid email address",
+  },
+};
+
+const screen = {
+  login: {
+    heading: "Hi, Welcome Back.",
+    description: "Enter your credentials to continue.",
+    buttonText: "Login",
+  },
+
+  forgot: {
+    heading: "Forgot your password?",
+    description: "We'll help you get back into your workspace.",
+    buttonText: "Send verification code",
+  },
+
+  contact: {
+    heading: "Let's get you connected.",
+    description: "Request access or get help from your administrator.",
+    buttonText: "Send request",
+  },
+};
+
+const Login = ({ onLogin, onForgotPassword, onContactAdmin }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [pageMode, setPageMode] = useState("login");
+  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch();
+
+  const theme = useTheme()
+
+  const {
+    control,
+    handleSubmit,
+    clearErrors,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+      fullName: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const emailField = {
+    name: "email",
+    label: "Email address",
+    type: "email",
+    placeholder: "jhon.doe@example.com",
+    icon: <AiOutlineMail />,
+    rules: Email,
+  };
+
+  const Fields = {
+    login: [
+      {
+        name: "username",
+        label: "Username or Email",
+        type: "text",
+        placeholder: "Enter username or email",
+        icon: <AiOutlineMail size={19} strokeWidth={1.8} />,
+        rules: {
+          required: "Username or email is required",
         },
-    });
+      },
+      {
+        name: "password",
+        label: "Password",
+        type: showPassword ? "text" : "password",
+        placeholder: "Enter your password",
+        icon: <AiOutlineLock size={19} />,
+        rules: {
+          required: "Password is required",
+        },
+        endIcon: (
+          <IconButton
+            size="small"
+            type="button"
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            onClick={() => setShowPassword((prev) => !prev)}
+            edge="end"
+          >
+            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          </IconButton>
+        ),
+      },
+    ],
 
-    const {
-        control,
-        handleSubmit,
-        setError,
-        clearErrors,
-        watch,
-        reset,
-        resetField,
-        getValues,
-        formState: { errors },
-    } = defaultValues;
-    const fetchFilterData = async (user) => {
-        const filterObj = { actuser: user?.toLowerCase() };
+    forgot: [emailField],
 
-        await dispatch(channelfilter(filterObj));
-        await dispatch(configfilter(filterObj));
-        await dispatch(cityfilter(filterObj));
-        await dispatch(statefilter(filterObj));
-        await dispatch(countryfilter(filterObj));
-        await dispatch(requestfilter(filterObj));
-        await dispatch(currencyfilter(filterObj));
-        await dispatch(districtfilter(filterObj));
-        await dispatch(departmentfilter(filterObj));
-        await dispatch(poolactfilter(filterObj));
-        await dispatch(respcodefilter(filterObj));
-        await dispatch(actstatusfilter(filterObj));
-        await dispatch(riskfilter(filterObj));
-        await dispatch(mccfilter(filterObj));
-        await dispatch(applanguagefilter(filterObj));
-        await dispatch(employeefilter(filterObj));
-        await dispatch(businessnaturefilter(filterObj));
-        await dispatch(merchantindicatorfilter(filterObj));
-        await dispatch(partnertypefilter(filterObj));
-        await dispatch(legalentityfilter(filterObj));
-        await dispatch(relationacqfilter(filterObj));
-        await dispatch(telecomfilter(filterObj));
-        await dispatch(notificationtoken(filterObj));
-        await dispatch(faqcategory(filterObj));
-        await dispatch(soccategory(filterObj));
-        await dispatch(merchanttype(filterObj));
-        await dispatch(getdeclinereason(filterObj));
-        await dispatch(getkycstagestatus(filterObj));
-        await dispatch(getkycprocstage(filterObj));
-        await dispatch(getwalletlevels(filterObj));
-        await dispatch(getdevicestatus(filterObj));
-        await dispatch(getcompliancetransactionnames(filterObj));
-        await dispatch(getsafstatus(filterObj));
-        await dispatch(getreportformats(filterObj));
-        await dispatch(getbillertype(filterObj));
-        await dispatch(getauditeventtypes(filterObj));
-        await dispatch(getauditmoduletypes(filterObj));
-        await dispatch(getrequestelements(filterObj));
-        await dispatch(getservicename(filterObj));
-        await dispatch(getrequestmanualadjustment(filterObj));
+    contact: [
+      {
+        name: "fullName",
+        label: "Full name",
+        type: "text",
+        placeholder: "Jhon Doe",
+        icon: <AiOutlineUser />,
+        rules: {
+          required: "Full name is required",
+        },
+      },
+      emailField,
+      {
+        name: "message",
+        label: "How can we help?",
+        type: "text",
+        placeholder: "Tell us what you need...",
+        rules: {
+          required: "Please enter your message",
+        },
+        multiline: true,
+        rows: 3,
+        className: "login-message",
+      },
+    ],
+  };
 
+  const renderField = (field) => (
+    <Box key={field.name}>
+      <Typography className="login-label">
+        {field.label}
+      </Typography>
 
-        // await dispatch(branchfilter(filterObj));
-        // await dispatch(transactionfilter(filterObj));
-        // await dispatch(productfilter(filterObj));
-        // await dispatch(taxfilter(filterObj));
-        // await dispatch(uirolefilter(filterObj));
-        // await dispatch(uiuserfilter(filterObj));
-        // await dispatch(payrollcompanyfilter(filterObj));
-        // await dispatch(holdingfilter(filterObj));
-        // await dispatch(terminaltypefilter(filterObj));
-        // await dispatch(terminalfilter(filterObj));
-        // await dispatch(merchantfilter(filterObj));
-        // await dispatch(faqquestion(filterObj));
-        // await dispatch(socchargetype(filterObj));
-        // await dispatch(getreportlist(filterObj));
-        // await dispatch(getconsumerproducts(filterObj));
-        // await dispatch(crmMerchantproductfilter(filterObj));
-        // await dispatch(getbanks(filterObj));
+      <InputFields
+        fieldName={field.name}
+        control={control}
+        error={errors[field.name]}
+        type={field.type}
+        placeholder={field.placeholder}
+        rules={field.rules}
+        className={`login-input ${field.className || ""}`}
+        multiline={field.multiline}
+        rows={field.rows}
+        slotProps={{
+          input: {
+            ...(field.icon && {
+              startAdornment: (
+                <InputAdornment position="start">{field.icon}</InputAdornment>
+              ),
+            }),
+            ...(field.endIcon && {
+              endAdornment: (
+                <InputAdornment position="end">{field.endIcon}</InputAdornment>
+              ),
+            }),
+          },
+        }}
+      />
+    </Box>
+  );
+
+  const changePageMode = (mode) => {
+    clearErrors();
+    setPageMode(mode);
+  };
+
+  const handleFormSubmit = (data) => {
+    const actions = {
+      login: () =>
+        onLogin?.({
+          username: data.username,
+          password: data.password,
+          rememberMe,
+        }),
+
+      forgot: () =>
+        onForgotPassword?.({
+          email: data.email,
+        }),
+
+      contact: () =>
+        onContactAdmin?.({
+          fullName: data.fullName,
+          email: data.email,
+          message: data.message,
+        }),
     };
 
-    const submit = async () => {
-        setIsLoading(true)
-        let data = getValues()
-        data["salt"] = "30"
-        data["audittrace"] = 'Qubits|Admin Panel|Login'
-        data["actuser"] = data.username?.toLowerCase()
-        data.password = await fetchPublicKey(data.password);
-        if (!data.password) {
-            console.error('Encryption failed');
-            setIsLoading(false);
-            return;
-        }
-        dispatch(login(data)).then((res) => {
-            console.log(res.payload?.user?.responsecode)
-            if (res.payload?.user?.responsecode == 0) {
-                const filterObj = { actuser: res.payload.username?.toLowerCase() };
-                dispatch(allfilters(filterObj)).then(res => {
-                    const data = {
-                        "configid": "",
-                        "audittrace": 'Qubits | Login'
-                    }
-                    dispatch(getconfig(data)).then((res) => {
-                        const obj = res.payload.list.find(val => val.entity == 'BO Portal Version')
-                        dispatch(saveVersion(obj))
-                        uiActions.showNotification({
-                            status: "success",
-                            title: "Authorized!",
-                            message: "Welcome to Qubits",
-                        })
-                        dispatch(setIsLogin())
-                        sessionStorage.setItem('wasHidden', true);
-                        setIsLoading(false);
-                    });
+    actions[pageMode]?.();
+  };
 
-                })
-            }
-            else {
-                setIsLoading(false);
-            }
+  const features = [
+    {
+      icon: <SlEnergy />,
+      label: "Faster Delivery",
+    },
+    {
+      icon: <TbUsers />,
+      label: "Better Collaboration",
+    },
+    {
+      icon: <AiOutlineBarChart />,
+      label: "Actionable Insights",
+    },
+  ];
+
+  const currentScreen = screen[pageMode];
+
+  const submit = async () => {
+    setIsLoading(true)
+    let data = getValues()
+    data["salt"] = "30"
+    data["audittrace"] = 'Qubits|Admin Panel|Login'
+    data["actuser"] = data.username?.toLowerCase()
+    data.password = await fetchPublicKey(data.password);
+    if (!data.password) {
+      console.error('Encryption failed');
+      setIsLoading(false);
+      return;
+    }
+    dispatch(login(data)).then((res) => {
+      console.log(res.payload?.user?.responsecode)
+      if (res.payload?.user?.responsecode == 0) {
+        const filterObj = { actuser: res.payload.username?.toLowerCase() };
+        dispatch(allfilters(filterObj)).then(res => {
+          const data = {
+            "configid": "",
+            "audittrace": 'Qubits | Login'
+          }
+          dispatch(getconfig(data)).then((res) => {
+            const obj = res.payload.list.find(val => val.entity == 'BO Portal Version')
+            dispatch(saveVersion(obj))
+            uiActions.showNotification({
+              status: "success",
+              title: "Authorized!",
+              message: "Welcome to Qubits",
+            })
+            dispatch(setIsLogin())
+            sessionStorage.setItem('wasHidden', true);
+            setIsLoading(false);
+          });
 
         })
-    }
+      }
+      else {
+        setIsLoading(false);
+      }
 
-    const videoRef = useRef(null);
-    useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play().catch((error) => {
-                console.error('Autoplay error:', error);
-            });
-        }
-    }, []);
+    })
+  }
 
-    const handleKeyDown = (event) => {
-        if (event.key === "Enter") {
-            handleSubmit(submit)();  // Trigger form submission
-        }
-    };
+  return (
+    <Box className="login-page">
+      <Box className="login-header">
+        <Box
+          component="img"
+          src={logoImage}
+          alt="Qubits Logo"
+          className="login-logo"
+        />
 
-    return <Box style={{ display: 'flex', height: '100vh', justifyContent: 'end' }} className='loginContainer'>
+        <Box className="login-header-actions">
+          <Typography className="login-header-text">New here?</Typography>
 
-        {/* <video
-            ref={videoRef}
-            src={video1}
-            style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                background:' rgb(226, 229, 233)',
-            }}
-            autoPlay
-            muted
-        /> */}
-        <Card style={{ maxWidth: isMobile ? '80%' : '25%', padding: '50px', margintop: '200px', background: 'transparent', border: '0px ' }}>
-            <Box className="logoContainer">
-                <img src={Logo} alt="Logo" />
-                <Typography variant="h2" component="span" color="secondary" sx={{ margin: '10px auto' }} >
-                    Hi, Welcome Back
+          <Button
+            onClick={() => changePageMode("contact")}
+            endIcon={<AiOutlineArrowRight />}
+            className="login-contact-button"
+          >
+            Contact Admin
+          </Button>
+        </Box>
+      </Box>
+
+      <Box className="login-main">
+        <Box className="login-form-section">
+          <Box sx={{ marginBottom: "32px", display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <Typography sx={{ color: '#937ab7', fontWeight: '500', letterSpacing: '2px' }} variant="h6">
+              WELCOME TO QUBITS PORTAL
+            </Typography>
+
+            <Typography variant="h1">
+              {currentScreen.heading}
+            </Typography>
+
+            <Typography variant="body1" sx={{ color: '#617088' }}>
+              {currentScreen.description}
+            </Typography>
+          </Box>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(handleFormSubmit)}
+            className="login-form"
+          >
+            {Fields[pageMode].map(renderField)}
+
+            {pageMode === "login" && (
+              <>
+                <Box className="login-options">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        size="small"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                        className="login-checkbox"
+                      />
+                    }
+                    label="Remember me"
+                    className="login-remember"
+                  />
+
+                  <Button
+                    type="button"
+                    onClick={() => changePageMode("forgot")}
+                    // className="login-forgot"
+                    color="secondary"
+                  >
+                    Forgot Password?
+                  </Button>
+                </Box>
+              </>
+            )}
+
+            <Button
+              type="submit"
+              fullWidth
+              endIcon={<AiOutlineArrowRight />}
+              className="login-submit"
+              variant="contained" color="secondary"
+              onClick={handleSubmit(submit)}
+            >
+              {isLoading && (
+                <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
+              )}
+              {currentScreen.buttonText}
+            </Button>
+            {pageMode === "login" && (
+              <Box className="login-security-wrapper">
+                <AiOutlineSafety />
+
+                <Typography className="login-security">
+                  Your workspace, securely connected.
                 </Typography>
-                <Typography variant="h4" component="span" sx={{ margin: '10px auto' }} color={'rgb(105, 117, 134)'} >
-                    Enter your credentials to continue
-                </Typography>
-            </Box>
-            <form onKeyDown={handleKeyDown}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} >
-                        <InputFields
-                            fieldName="username"
-                            type="text"
-                            label="Username"
-                            control={control}
-                            rules={{
-                                required: "Username is required",
-                            }}
-                            error={errors.username}
-                            pattern={alphanumericWithPointRegex}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <InputFields
-                            fieldName="password"
-                            type={showPassword ? "text" : "password"}
-                            label="Password"
-                            control={control}
-                            rules={{
-                                required: "Password is required",
-                            }}
-                            error={errors.password}
-                            inputProps={{
-                                endAdornment: (
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                    >
-                                        {showPassword ? <AiFillEyeInvisible color={theme.palette.textColor} /> : <AiFillEye color={theme.palette.textColor} />}
-                                    </IconButton>
-                                ),
-                            }}
-                        />
-                    </Grid>
+              </Box>
+            )}
 
-                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="text" color="secondary" >Forgot Password?</Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button fullWidth size="medium" variant="contained" color="secondary" disabled={isLoading}
-                            onClick={handleSubmit(submit)}>
-                            {isLoading && (
-                                <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
-                            )}Login</Button>
-                    </Grid>
-                </Grid>
-            </form>
-        </Card>
+            {pageMode !== "login" && (
+              <Button
+                type="button"
+                onClick={() => changePageMode("login")}
+                startIcon={<AiOutlineArrowLeft />}
+                className="login-back"
+              >
+                Back to login
+              </Button>
+            )}
+          </Box>
+        </Box>
+
+        <Box className="login-promo">
+          <Box sx={{ marginLeft: "120px", display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <Typography sx={{ color: '#937ab7', fontWeight: '500', letterSpacing: '2px' }} variant="h6">
+              YOUR WORK. CONNECTED.
+            </Typography>
+
+            <Typography sx={{ margin: '0px' }} variant="h1"> One workspace.</Typography>
+            <Typography sx={{ margin: '0px' }} variant="h1" color={theme.palette.darkBaseColor} >Endless possibilities.</Typography>
+
+
+            <Typography variant="body1" sx={{ color: '#617088' }}>
+              Bring your people, projects and progress together.
+            </Typography>
+          </Box>
+
+          <Box className="promo-image-wrapper">
+            <Box
+              component="img"
+              src={dashboardImage}
+              alt="Qubits Dashboard Preview"
+              className="promo-image"
+            />
+          </Box>
+
+          <Box className="promo-features">
+            {features.map((feature) => (
+              <Box key={feature.label} className="promo-feature">
+                <Box className="promo-feature-icon">{feature.icon}</Box>
+
+                <Typography className="promo-feature-label">
+                  {feature.label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+      </Box>
+
+      <Box className="login-footer">
+        <Typography>© 2026 Qubits Informatics. All rights reserved.</Typography>
+      </Box>
     </Box>
-}
+  );
+};
+
 export default Login;

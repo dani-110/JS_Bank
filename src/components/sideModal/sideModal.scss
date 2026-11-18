@@ -1,0 +1,150 @@
+.side-modal-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: rgb(29 53 76 / 12%);
+}
+
+.side-modal-panel {
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  max-width: 100vw;
+  overflow-y: auto;
+  padding: 26px 30px;
+  color: #263b50;
+  background: #fff;
+  border-left: 1px solid #d3deea;
+  box-shadow: -10px 0 25px rgb(20 47 74 / 12%);
+  animation: side-modal-slide-in 180ms ease-out;
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 21px;
+    font-weight: 500;
+  }
+}
+
+.side-modal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  color: #2e6fae;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.side-modal-icon-close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 30px;
+  color: #315676;
+  background: #fff;
+  border: 1px solid #c8d9e9;
+  border-radius: 7px;
+  cursor: pointer;
+
+  &:hover {
+    background: #f3f8fc;
+  }
+}
+
+.side-modal-description {
+  margin: 0 0 20px;
+  color: #59738b;
+  font-size: 12px;
+}
+
+.side-modal-status {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 24px;
+  margin: 0 0 23px;
+  padding: 0 9px;
+  border-radius: 5px;
+  color: #28664d;
+  background: #e2f3eb;
+  font-size: 11px;
+}
+
+.side-modal-section {
+  flex: 0 0 auto;
+  padding: 24px 0 22px;
+  border-top: 1px solid #c9d9e8;
+
+  h3 {
+    margin: 0 0 21px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
+
+.side-modal-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 20px;
+  row-gap: 26px;
+  margin: 0;
+
+  div {
+    min-width: 0;
+  }
+  dt {
+    margin-bottom: 9px;
+    color: #5f7890;
+    font-size: 11px;
+  }
+  dd {
+    margin: 0;
+    color: #263a4f;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+}
+
+.side-modal-close-button {
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 38px;
+  margin-top: 5px;
+  padding: 0 16px;
+  color: #1761a7;
+  background: #fff;
+  border: 1px solid #c6d8e9;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+
+  &:hover {
+    background: #f3f8fc;
+  }
+}
+
+@keyframes side-modal-slide-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .side-modal-panel {
+    padding: 22px 20px;
+  }
+}

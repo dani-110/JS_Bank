@@ -15,9 +15,12 @@ const BarChart = ({ data }) => {
           }
         },
       },
+      dataLabels: {
+        enabled: false,
+      },
       grid: {
         padding: {
-          bottom: 0, // neeche ka space aur kam karega
+          bottom: 0,
           left: 0,
           right: 0,
           top: 0,
@@ -33,17 +36,28 @@ const BarChart = ({ data }) => {
         labels: {
           style: {
             colors: theme.palette.textColor,
+            fontSize: '6px',
           }
         }
       },
       yaxis: {
         labels: {
           style: {
-            colors: theme.palette.textColor, 
+            colors: theme.palette.textColor,
           }
         }
       },
-      colors: ["rgb(165, 136, 220)"],
+      colors: [theme.palette.darkBaseColor],
+      tooltip: {
+        enabled: true,
+        shared: false,
+        intersect: true,
+        y: {
+          formatter: function (val) {
+            return `${val} Transactions`; // Hover karne par value ke sath text bhi dikhayega
+          }
+        }
+      },
     },
     series: [
       {
@@ -58,7 +72,7 @@ const BarChart = ({ data }) => {
       series={transactionMISCustomListState.series}
       type="bar"
       width="100%"
-      height="90%"
+      height="320"
     />
   );
 };

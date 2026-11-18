@@ -4,14 +4,24 @@
     padding: 20px;
     overflow: hidden;
 
-    
+
 
 }
+
 .portionContainer {
     display: 'flex';
     flex: 1;
     flex-direction: column;
     overflow: hidden;
+}
+
+.detailCard {
+    display: flex;
+    flex-direction: Column;
+    gap: 10px;
+    flex: 1;
+    padding: 20px;
+
 }
 .cardContainer {
     display: flex;
@@ -20,6 +30,7 @@
     border-radius: 10px;
     flex: 1;
     justify-content: center;
+
     img {
         height: 100px;
         width: 100px;

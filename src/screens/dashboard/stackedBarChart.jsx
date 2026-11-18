@@ -66,7 +66,7 @@ const DynamicStackedBarChart = ({ data }) => {
   return (
 
     <Chart options={options} series={series} type="bar" width="100%"
-      height="90%" />
+      height="320" />
   );
 };
 

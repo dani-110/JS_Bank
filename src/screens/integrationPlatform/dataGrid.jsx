@@ -13,6 +13,8 @@ import { filterName } from '../../utils/Utils';
 import { sendchannelcommand, sendnetworkmessage } from '../../store/actions/channelConfig';
 import { BreadCrumSelectorContext } from '../../store/context/breadCrumSelector';
 import Card from '../../components/card/Card';
+import { IoEyeOutline } from 'react-icons/io5';
+import ViewModal from '../../components/viewModal/viewModal';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, tableHeading } = props
@@ -68,7 +70,7 @@ const TableAction = (data) => {
         });
     };
     return (
-        <Box>
+        <Box sx={{ display: 'flex' }}>
             <Tooltip title={'Send Sign In'}>
                 <IconButton onClick={() => { sendSignInOut('1', 'Send Sign In') }} sx={{ width: '40px', margin: '0px auto' }}>
                     <img src={signin} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
@@ -79,9 +81,9 @@ const TableAction = (data) => {
                     <img src={signout} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
                 </IconButton>
             </Tooltip>
-            <ModalButton open={openView} setOpen={setOpenView} tooltip={'View'} img={view}>
+            <ViewModal open={openView} setOpen={setOpenView} tooltip={'CHANNEL DETAILS'} type={'View'}>
                 <IntegrationPlatformView data={item} />
-            </ModalButton>
+            </ViewModal>
         </Box>
     )
 }

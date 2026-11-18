@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterName } from '../../utils/Utils';
 import { removesaftransaction, safretransmit } from '../../store/actions/monitoring';
 import { BreadCrumSelectorContext } from '../../store/context/breadCrumSelector';
+import ViewModal from '../../components/viewModal/viewModal';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, tableHeading } = props
@@ -94,10 +95,13 @@ const TableAction = (data) => {
         });
     }
     return (
-        <Box>
-            <ModalButton open={openView} setOpen={setOpenView} tooltip={'View'} img={view}>
+        <Box sx={{ display: 'flex' }}>
+            {/* <ModalButton open={openView} setOpen={setOpenView} tooltip={'View'} img={view}>
                 <SAFTransactionsView data={item} />
-            </ModalButton>
+            </ModalButton> */}
+            <ViewModal open={openView} setOpen={setOpenView} tooltip={'TRANSACTION DETAILS'} type={'View'}>
+                <SAFTransactionsView data={item} />
+            </ViewModal>
             <Tooltip title={'RE-TRANSMIT SAF'}>
                 <IconButton onClick={() => { reTransmitSAF(item, 'RE-TRANSMIT SAF') }} sx={{ width: '40px' }}>
                     <img src={transactionalData} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />

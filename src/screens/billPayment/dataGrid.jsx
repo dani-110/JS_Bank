@@ -2,9 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import TabelContainer from '../../components/table/table';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterName } from '../../utils/Utils';
+import { Box } from '@mui/material';
+import ViewModal from '../../components/viewModal/viewModal';
+import BillPaymentView from './billPaymentView';
 
 const DataGrid = (props) => {
-    const { isLoading, fetchList,tableHeading } = props
+    const { isLoading, fetchList, tableHeading } = props
     const { getbillpaymentlistlist, getbillpaymentlistTotalcount } = useSelector(state => state.monitoring)
     const { respcodeFilter, requestFilter, ubpsrespcodeFilter } = useSelector(state => state.filter)
     const [dataList, setDataList] = useState([])
@@ -52,6 +55,7 @@ const DataGrid = (props) => {
     return <TabelContainer
         tableHeader={tableHeader}
         data={dataList}
+        action={TableAction}
         verifyParam={verifyParam}
         isLoading={isLoading}
         count={getbillpaymentlistTotalcount}
@@ -60,3 +64,16 @@ const DataGrid = (props) => {
     />
 }
 export default DataGrid;
+
+
+const TableAction = (data) => {
+    const item = data.id
+    const [openView, setOpenView] = React.useState(false);
+    return (
+        <Box sx={{ display: 'flex' }}>
+            <ViewModal open={openView} setOpen={setOpenView} tooltip={'TRANSACTION DETAILS'} type={'View'}>
+                <BillPaymentView data={item} />
+            </ViewModal>
+        </Box>
+    )
+}

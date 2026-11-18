@@ -16,6 +16,7 @@ import { filterName } from '../../utils/Utils';
 import { forcelogout } from '../../store/actions/users';
 import PermissionComp from '../../components/permissionComp/permissionComp';
 import { BreadCrumSelectorContext } from '../../store/context/breadCrumSelector';
+import ViewModal from '../../components/viewModal/viewModal';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, tableHeading } = props
@@ -111,23 +112,23 @@ const TableAction = (data) => {
         })
     }
     return (
-        <Box>
+        <Box sx={{ display: 'flex', gap: '5px' }}>
             <PermissionComp list={['User Management', 'Users', 'Edit']}>
-                <ModalButton open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} img={edit}>
+                <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'USER MANAGEMENT'} type={'Edit'}>
                     <UsersUpdateForm data={item} setOpen={setOpenEdit} type={'Edit'} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>
 
             <PermissionComp list={['User Management', 'Users', 'View']}>
-                <ModalButton open={openView} setOpen={setOpenView} tooltip={'View'} img={view}>
+                <ViewModal open={openView} setOpen={setOpenView} tooltip={'USER MANAGEMENT'} type={'View'}>
                     <UserView data={item} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>
 
             <PermissionComp list={['User Management', 'Users', 'Change Password']}>
-                <ModalButton open={openPassword} setOpen={setOpenPassword} tooltip={'Change Password'} img={password}>
+                <ViewModal open={openPassword} setOpen={setOpenPassword} tooltip={'Change Password'} img={password}>
                     <ChangePassword data={item} setOpen={setOpenPassword} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>
 
             <PermissionComp list={['User Management', 'Users', 'Force Logout']}>

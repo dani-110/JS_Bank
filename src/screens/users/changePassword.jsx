@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, CircularProgress, Grid, IconButton } from "@mui/material";
+import { Button, CircularProgress, Divider, Grid, IconButton, Typography } from "@mui/material";
 import InputFields from "../../components/InputFields";
 import ButtonContainer from "../../components/buttonContainer";
 import { useTheme } from '@mui/material/styles';
@@ -73,65 +73,77 @@ const ChangePassword = (props) => {
         }
     }
 
-    return <form>
-        <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-                <InputFields
-                    fieldName="password"
-                    type={showPassword ? "text" : "password"}
-                    label="New Password"
-                    control={control}
-                    error={errors.password}
-                    inputProps={{
-                        endAdornment: (
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => setShowPassword(!showPassword)}
-                            >
-                                {showPassword ? <AiFillEyeInvisible color={theme.palette.textColor} /> : <AiFillEye color={theme.palette.textColor} />}
-                            </IconButton>
-                        ),
-                    }}
-                    rules={{
-                        required: "New Password is required",
-                    }}
-                />
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <InputFields
-                    fieldName="reenterpassword"
-                    type={showReEnterPassword ? "text" : "password"}
-                    label="Re Enter Password"
-                    control={control}
-                    error={errors.reenterpassword}
-                    inputProps={{
-                        endAdornment: (
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => setShowReEnterPassword(!showReEnterPassword)}
-                            >
-                                {showReEnterPassword ? <AiFillEyeInvisible color={theme.palette.textColor} /> : <AiFillEye color={theme.palette.textColor} />}
-                            </IconButton>
-                        ),
-                    }}
-                    rules={{
-                        required: "Re-Enter Password is required",
-                    }}
-                />
-            </Grid>
+    return <>
+        <Typography variant='h2' sx={{ margin: '10px', textAlign: 'left', fontWeight: '500' }}>{'Change password'}</Typography>
+        <Typography variant="body1" sx={{ textAlign: 'left', margin: '10px 10px 20px', }} color={'#617088'}>{data['username']}</Typography>
+        <form style={{ padding: '10px' }}>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <InputFields
+                        fieldName="password"
+                        type={showPassword ? "text" : "password"}
+                        label="New Password"
+                        control={control}
+                        error={errors.password}
+                        inputProps={{
+                            endAdornment: (
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <AiFillEyeInvisible color={theme.palette.textColor} /> : <AiFillEye color={theme.palette.textColor} />}
+                                </IconButton>
+                            ),
+                        }}
+                        rules={{
+                            required: "New Password is required",
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <InputFields
+                        fieldName="reenterpassword"
+                        type={showReEnterPassword ? "text" : "password"}
+                        label="Re Enter Password"
+                        control={control}
+                        error={errors.reenterpassword}
+                        inputProps={{
+                            endAdornment: (
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={() => setShowReEnterPassword(!showReEnterPassword)}
+                                >
+                                    {showReEnterPassword ? <AiFillEyeInvisible color={theme.palette.textColor} /> : <AiFillEye color={theme.palette.textColor} />}
+                                </IconButton>
+                            ),
+                        }}
+                        rules={{
+                            required: "Re-Enter Password is required",
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <Divider sx={{ margin: '10px', bgcolor: '#617088' }} />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <ButtonContainer >
+                        <Button size="medium" variant="outlined" color="secondary" disabled={isLoading}
+                            onClick={() => setOpen(false)}>
+                            Cancel</Button>
+                        <Button size="medium" variant="contained" color="secondary" disabled={isLoading}
+                            onClick={handleSubmit(submit)}>
+                            {isLoading && (
+                                <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
+                            )}
+                            Save</Button>
+                    </ButtonContainer>
+                </Grid>
 
 
-            <Grid item xs={12}>
-                <ButtonContainer isSingle>
-                    <Button size="medium" variant="contained" color="primary" disabled={isLoading}
-                        onClick={handleSubmit(submit)}>
-                        {isLoading && (
-                            <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
-                        )}Save</Button>
-                </ButtonContainer>
             </Grid>
-        </Grid>
-    </form>
+        </form>
+    </>
 };
 
 export default ChangePassword;

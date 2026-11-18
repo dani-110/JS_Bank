@@ -28,6 +28,7 @@ const IntegrationPlatform = () => {
         setIsLoader(true)
         try {
             await Promise.all([
+                dispatch(channelfilter({}))
             ]).then(res => {
                 setIsLoader(false)
             });
