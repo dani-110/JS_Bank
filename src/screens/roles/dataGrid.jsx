@@ -8,6 +8,7 @@ import create from '../../assests/create.png'
 import ButtonContainer from '../../components/buttonContainer';
 import { useSelector } from 'react-redux';
 import PermissionComp from '../../components/permissionComp/permissionComp';
+import ViewModal from '../../components/viewModal/viewModal';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, tableHeading } = props
@@ -53,9 +54,9 @@ const TableAction = (data) => {
     return (
         <Box>
             <PermissionComp list={['User Management', 'Roles', 'Edit']}>
-                <ModalButton open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} img={edit} width={'60%'} >
+                <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} width={'60%'} type={'Edit'} >
                     <RolesUpdateForm data={item} setOpen={setOpenEdit} type={'Edit'} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>
         </Box>
     )

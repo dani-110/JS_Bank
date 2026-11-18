@@ -262,7 +262,6 @@ const Login = ({ onLogin, onForgotPassword, onContactAdmin }) => {
       return;
     }
     dispatch(login(data)).then((res) => {
-      console.log(res.payload?.user?.responsecode)
       if (res.payload?.user?.responsecode == 0) {
         const filterObj = { actuser: res.payload.username?.toLowerCase() };
         dispatch(allfilters(filterObj)).then(res => {

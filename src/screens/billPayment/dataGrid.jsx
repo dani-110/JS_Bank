@@ -70,7 +70,7 @@ const TableAction = (data) => {
     const item = data.id
     const [openView, setOpenView] = React.useState(false);
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
             <ViewModal open={openView} setOpen={setOpenView} tooltip={'TRANSACTION DETAILS'} type={'View'}>
                 <BillPaymentView data={item} />
             </ViewModal>

@@ -44,6 +44,10 @@ const Sidebar = (props) => {
   }
 
   useEffect(() => {
+    console.log(location.pathname.slice(1).split('/')[0])
+    if (location.pathname.slice(1).split('/')[0] == 'dashboard') {
+      setExpanded('Home Dashboard')
+    }
     let arr = location.pathname.slice(1).split('/')
     breadCrumCtxt.setBreadCrumSelector(arr.map(e => e.includes("UpdateForm") ? 'Edit' : nameAsSideMenu(e)));
   }, [location]);

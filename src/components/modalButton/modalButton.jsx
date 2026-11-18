@@ -10,7 +10,7 @@ import { IoEyeOutline } from "react-icons/io5";
 const style = {
     top: '50%',
     left: '50%',
-    width: '80%',
+    width: '30%',
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
@@ -46,13 +46,13 @@ const ModalButton = (props) => {
                     <Button size="medium" color={buttonColor ? buttonColor : "primary"} variant={fill ? "contained" : 'text'} onClick={handleOpen} disabled={disabled}>{title}</Button>
                     :
                     <Tooltip title={tooltip}>
-                        {/* {
+                        {
                             <Box onClick={handleOpen} disabled={disabled} sx={{ border: '1px solid #d7dfea', borderRadius: '8px', padding: '7px', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: disabled ? 0.4 : 1 }}>
-                                {tooltip == 'View' ? <IoEyeOutline color={theme.palette.darkBaseColor} size={20} strokeWidth={3} /> : img}
-                            </Box>} */}
-                        <IconButton onClick={handleOpen} sx={{ width: '40px', margin: '0px auto' }} disabled={disabled}>
+                                {img}
+                            </Box>}
+                        {/* <IconButton onClick={handleOpen} sx={{ width: '40px', margin: '0px auto' }} disabled={disabled}>
                             <img src={img} style={{ width: '25px', height: '25px', objectFit: 'contain', opacity: disabled ? 0.4 : 1 }} />
-                        </IconButton>
+                        </IconButton> */}
                     </Tooltip>
 
             }
@@ -63,19 +63,19 @@ const ModalButton = (props) => {
 
                         <Card style={{
                             overflow: isNotScrollable ? 'hidden' : 'auto',
+                            padding: '20px',
                             ...(height
                                 ? { height }
                                 : { maxHeight: '85vh' }
                             )
 
                         }} >
-                            <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-
-                                <HeadingTitle isNotBreadCrumb={isNotBreadCrumb} descriptionText={descriptionText} title={heading ? heading : tooltip} handleClose={handleClose} />
-
+                            <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
+                                <Typography variant="body1" color={'secondary'} sx={{ textAlign: 'left', letterSpacing: '1px', fontWeight: '500', marginBottom: '10px' }}>
+                                    {heading ? heading : tooltip}
+                                </Typography>
+                                {/* <HeadingTitle isNotBreadCrumb={isNotBreadCrumb} descriptionText={descriptionText} title={heading ? heading : tooltip} handleClose={handleClose} /> */}
                             </Box>
-                            <Divider sx={{ margin: '10px 0px', bgcolor: 'textColor' }} />
-
                             {children}
                         </Card>
                     </Box>

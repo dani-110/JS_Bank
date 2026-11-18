@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import TabelContainer from '../../components/table/table';
-import { Box, IconButton, Tooltip } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
 import ModalButton from '../../components/modalButton/modalButton';
 import UsersUpdateForm from './usersUpdateForm';
 import ChangePassword from './changePassword';
@@ -17,6 +17,8 @@ import { forcelogout } from '../../store/actions/users';
 import PermissionComp from '../../components/permissionComp/permissionComp';
 import { BreadCrumSelectorContext } from '../../store/context/breadCrumSelector';
 import ViewModal from '../../components/viewModal/viewModal';
+import { AiOutlineKey } from 'react-icons/ai';
+import { CiLogout } from 'react-icons/ci';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, tableHeading } = props
@@ -88,11 +90,14 @@ export default DataGrid;
 
 const TableAction = (data) => {
     const dispatch = useDispatch()
+    const theme = useTheme()
     const breadCrumCtxt = useContext(BreadCrumSelectorContext);
 
     const [openEdit, setOpenEdit] = React.useState(false);
     const [openView, setOpenView] = React.useState(false);
     const [openPassword, setOpenPassword] = React.useState(false);
+    const [openLogout, setOpenLogout] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
     const item = data.id
 
 
@@ -101,6 +106,7 @@ const TableAction = (data) => {
 
     const forceLogoutUser = () => {
         console.log(item)
+        setIsLoading(true)
         const obj = {
             "username": item.username,
             "audittrace": breadCrumCtxt.breadCrumSelector.join('|') + '|Force Logout'
@@ -108,6 +114,7 @@ const TableAction = (data) => {
         dispatch(forcelogout(obj)).then((res) => {
             if (res.payload) {
                 console.log(res.payload)
+                setIsLoading(false)
             }
         })
     }
@@ -126,17 +133,42 @@ const TableAction = (data) => {
             </PermissionComp>
 
             <PermissionComp list={['User Management', 'Users', 'Change Password']}>
-                <ViewModal open={openPassword} setOpen={setOpenPassword} tooltip={'Change Password'} img={password}>
+                <ViewModal open={openPassword} setOpen={setOpenPassword} tooltip={'Change Password'} img={<AiOutlineKey color={theme.palette.darkBaseColor} size={20} />}>
                     <ChangePassword data={item} setOpen={setOpenPassword} />
                 </ViewModal>
             </PermissionComp>
 
+
             <PermissionComp list={['User Management', 'Users', 'Force Logout']}>
-                <Tooltip title="Force Logout">
+
+                <ModalButton open={openLogout} setOpen={setOpenLogout} tooltip={'DEMO SESSION ACTION'}
+                    img={<CiLogout color={'#a83245'} size={20} strokeWidth={0.7} />}>
+                    <Typography variant='h2' sx={{ marginBottom: '20px', textAlign: 'left', fontWeight: '500' }}>Force logout?</Typography>
+                    <Typography variant='body1' sx={{ textAlign: 'left' }}>You are about to sign Off <Typography component={'span'} sx={{ fontWeight: '500' }}>IP Consumer Notification.</Typography></Typography>
+
+                    <Box sx={{ background: theme.palette.lightBaseColor, margin: '10px 0px', padding: '10px', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <Typography variant='body1' sx={{ textAlign: 'left' }}>{item.username}</Typography>
+                        <Typography variant='body2' sx={{ textAlign: 'left' }}>{item.firstname} {item.lastname} . Login Status {item.isloginValue}</Typography>
+                    </Box>
+                    <Grid item xs={12}>
+                        <ButtonContainer >
+                            <Button size="medium" variant="outlined" color="secondary" disabled={isLoading}
+                                onClick={() => setOpenLogout(false)}>
+                                Cancel</Button>
+                            <Button size="medium" variant="contained" color="error" disabled={isLoading}
+                                onClick={forceLogoutUser}>
+                                {isLoading && (
+                                    <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
+                                )}
+                                Confirm Force logout</Button>
+                        </ButtonContainer>
+                    </Grid>
+                </ModalButton>
+                {/* <Tooltip title="Force Logout">
                     <IconButton onClick={forceLogoutUser} >
                         <img src={ForceLogout} style={{ height: '25px', width: '25px', objectFit: 'contain' }} />
                     </IconButton>
-                </Tooltip>
+                </Tooltip> */}
             </PermissionComp>
         </Box>
     )

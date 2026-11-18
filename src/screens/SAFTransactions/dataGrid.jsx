@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import TabelContainer from '../../components/table/table';
-import { Box, IconButton, Tooltip } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
 import ModalButton from '../../components/modalButton/modalButton';
 import SAFTransactionsView from './SAFTransactionsView';
 import view from '../../assests/view.png'
@@ -11,6 +11,9 @@ import { filterName } from '../../utils/Utils';
 import { removesaftransaction, safretransmit } from '../../store/actions/monitoring';
 import { BreadCrumSelectorContext } from '../../store/context/breadCrumSelector';
 import ViewModal from '../../components/viewModal/viewModal';
+import { IoIosRefresh } from 'react-icons/io';
+import ButtonContainer from '../../components/buttonContainer';
+import { IoTrashOutline } from 'react-icons/io5';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, tableHeading } = props
@@ -69,6 +72,11 @@ export default DataGrid;
 const TableAction = (data) => {
     const item = data.id
     const [openView, setOpenView] = React.useState(false);
+    const [openTransmit, setOpenTransmit] = React.useState(false);
+    const [openDelete, setOpenDelete] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
+    console.log(item)
+    const theme = useTheme()
 
     const dispatch = useDispatch();
     const breadCrumCtxt = useContext(BreadCrumSelectorContext)
@@ -85,6 +93,7 @@ const TableAction = (data) => {
     }
 
     const reTransmitSAF = (data, type) => {
+        setIsLoading(true)
         const obj = {
             "transactionid": data.transactionid,
             "audittrace": breadCrumCtxt.breadCrumSelector.join('|') + `|${type}`
@@ -92,26 +101,73 @@ const TableAction = (data) => {
         console.log(obj)
         dispatch(safretransmit(obj)).then((res) => {
             console.log(res)
+            setIsLoading(false)
         });
     }
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', gap: '5px' }}>
             {/* <ModalButton open={openView} setOpen={setOpenView} tooltip={'View'} img={view}>
                 <SAFTransactionsView data={item} />
             </ModalButton> */}
             <ViewModal open={openView} setOpen={setOpenView} tooltip={'TRANSACTION DETAILS'} type={'View'}>
                 <SAFTransactionsView data={item} />
             </ViewModal>
-            <Tooltip title={'RE-TRANSMIT SAF'}>
+            <ModalButton open={openTransmit} setOpen={setOpenTransmit} tooltip={'DEMO TRANSACTION ACTION'}
+                img={<IoIosRefresh color={theme.palette.darkBaseColor} size={20} strokeWidth={0.7} />}>
+                <Typography variant='h2' sx={{ marginBottom: '20px', textAlign: 'left', fontWeight: '500' }}>Re-Transmit SAF?</Typography>
+                {/* <Typography variant='body1' sx={{ textAlign: 'left' }}>You are about to sign in <Typography component={'span'} sx={{ fontWeight: '500' }}>IP Consumer Notification.</Typography></Typography> */}
+
+                <Box sx={{ background: theme.palette.lightBaseColor, margin: '10px 0px', padding: '10px', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <Typography variant='body1' sx={{ textAlign: 'left' }}>{item.beneficiarybankname}</Typography>
+                    <Typography variant='body2' sx={{ textAlign: 'left' }}>{item.reqcodeValue} : {item.amount}</Typography>
+                </Box>
+                <Grid item xs={12}>
+                    <ButtonContainer >
+                        <Button size="medium" variant="outlined" color="secondary" disabled={isLoading}
+                            onClick={() => setOpenTransmit(false)}>
+                            Cancel</Button>
+                        <Button size="medium" variant="contained" color="secondary" disabled={isLoading}
+                            onClick={() => { reTransmitSAF(item, 'RE-TRANSMIT SAF') }}>
+                            {isLoading && (
+                                <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
+                            )}
+                            Confirm Re-Transmit SAF</Button>
+                    </ButtonContainer>
+                </Grid>
+            </ModalButton>
+            <ModalButton open={openDelete} setOpen={setOpenDelete} tooltip={'DEMO TRANSACTION ACTION'}
+                img={<IoTrashOutline color={'#a83245'} size={20} strokeWidth={0.7} />}>
+                <Typography variant='h2' sx={{ marginBottom: '20px', textAlign: 'left', fontWeight: '500' }}>Delete demo transaction?</Typography>
+                {/* <Typography variant='body1' sx={{ textAlign: 'left' }}>You are about to sign in <Typography component={'span'} sx={{ fontWeight: '500' }}>IP Consumer Notification.</Typography></Typography> */}
+
+                <Box sx={{ background: theme.palette.lightBaseColor, margin: '10px 0px', padding: '10px', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <Typography variant='body1' sx={{ textAlign: 'left' }}>{item.beneficiarybankname}</Typography>
+                    <Typography variant='body2' sx={{ textAlign: 'left' }}>{item.reqcodeValue} : {item.amount}</Typography>
+                </Box>
+                <Grid item xs={12}>
+                    <ButtonContainer >
+                        <Button size="medium" variant="outlined" color="secondary" disabled={isLoading}
+                            onClick={() => setOpenDelete(false)}>
+                            Cancel</Button>
+                        <Button size="medium" variant="contained" color="error" disabled={isLoading}
+                            onClick={() => { deleteRecord(item, 'Delete') }}>
+                            {isLoading && (
+                                <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
+                            )}
+                            Confirm Delete demo transaction</Button>
+                    </ButtonContainer>
+                </Grid>
+            </ModalButton>
+            {/* <Tooltip title={'RE-TRANSMIT SAF'}>
                 <IconButton onClick={() => { reTransmitSAF(item, 'RE-TRANSMIT SAF') }} sx={{ width: '40px' }}>
                     <img src={transactionalData} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
                 </IconButton>
-            </Tooltip>
-            <Tooltip title={'Delete'}>
+            </Tooltip> */}
+            {/* <Tooltip title={'Delete'}>
                 <IconButton onClick={() => { deleteRecord(item, 'Delete') }} sx={{ width: '40px' }}>
                     <img src={deleteIcon} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
                 </IconButton>
-            </Tooltip>
+            </Tooltip> */}
         </Box>
     )
 }
