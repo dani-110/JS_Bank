@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Grid, IconButton } from "@mui/material";
+import { Button, Grid, IconButton,Typography } from "@mui/material";
 import Card from "../../components/card/Card";
 import InputFields from "../../components/InputFields";
 import ButtonContainer from "../../components/buttonContainer";
@@ -57,7 +57,14 @@ const RolesUpdateForm = (props) => {
         })
     }
 
-    return <form>
+    return <>
+    <Typography
+        variant="h2"
+        sx={{ margin: "10px", textAlign: "left", fontWeight: "500" }}
+      >
+        {type=="Edit"?("Edit Role"):"Create Role"}
+      </Typography>
+    <form>
         <Grid container spacing={2}>
             {!data?.rid && <>
                 <Grid item xs={10}>
@@ -100,6 +107,7 @@ const RolesUpdateForm = (props) => {
 
         {role && <Permissions role={role} />}
     </form>
+    </>
 };
 
 export default RolesUpdateForm;

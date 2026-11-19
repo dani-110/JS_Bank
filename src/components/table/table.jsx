@@ -29,7 +29,7 @@ import Importstatus from '../importstatus/importstatus';
 import ButtonContainer from '../buttonContainer';
 
 const TableContainer = (props) => {
-  const { tableHeader, action: Action, extraColumnFeilds, extraColumn: ExtraColumn, extraColumnParams, addtionalRow: AddRow, data, verifyParam, isLoading, actionText, count, pageNumber, recordCount, highlight, fetchList, setSelectedRows, selectAllRow, groupBy, tableHeading, addButton } = props;
+  const { tableHeader, action: Action, extraColumnFeilds, extraColumn: ExtraColumn, extraColumnParams, addtionalRow: AddRow, data, verifyParam, isLoading, actionText, count, pageNumber, recordCount, highlight, fetchList,tableDescription, setSelectedRows, selectAllRow, groupBy, tableHeading, addButton } = props;
   const theme = useTheme()
   const [expanded, setExpanded] = React.useState([]);
 
@@ -145,7 +145,7 @@ const TableContainer = (props) => {
           <Typography variant="h4" >{tableHeading}</Typography>
           <Typography variant="body2" >{`${data.length == 0 ? 0 : pagination.page === 0
             ? data.length
-            : (pagination.page * pagination.rowsPerPage) + data.length} of ${count} record . drag or scroll horizontally for every column`}</Typography>
+            : (pagination.page * pagination.rowsPerPage) + data.length} of ${count} record . ${tableDescription||''}`}</Typography>
         </Box>
         <Box sx={{ display: 'flex' }}>
           <ButtonContainer {...(!addButton ? { isSingle: true } : {})}>
@@ -174,7 +174,7 @@ const TableContainer = (props) => {
                 ))
               }
               {
-                Action && <Box align='center' className='tableCell' sx={{ width: '150px' }}>
+                Action && <Box align='center' className='tableCell' sx={{ width: 1, whiteSpace:'nowrap',px:1}}>
                   {actionText ? actionText : "Action"}
                 </Box>
               }
@@ -310,7 +310,7 @@ const TableContainer = (props) => {
                                 ))
                               }
                               {
-                                Action && <Box align="center" sx={{ whiteSpace: 'nowrap', width: '150px', }}>
+                                Action && <Box align="center" sx={{ whiteSpace: 'nowrap', width: 1, px: 1 }}>
                                   <Action id={item} fetchList={fetchList} />
                                 </Box>
                               }

@@ -184,20 +184,15 @@ const Login = ({ onLogin, onForgotPassword, onContactAdmin }) => {
         className={`login-input ${field.className || ""}`}
         multiline={field.multiline}
         rows={field.rows}
-        slotProps={{
-          input: {
-            ...(field.icon && {
-              startAdornment: (
+        inputProps={{
+              startAdornment: field.icon ? (
                 <InputAdornment position="start">{field.icon}</InputAdornment>
-              ),
-            }),
-            ...(field.endIcon && {
-              endAdornment: (
+              ):null,
+          
+              endAdornment:field.endIcon? (
                 <InputAdornment position="end">{field.endIcon}</InputAdornment>
-              ),
-            }),
-          },
-        }}
+              ):null,
+        }}        
       />
     </Box>
   );
@@ -402,7 +397,7 @@ const Login = ({ onLogin, onForgotPassword, onContactAdmin }) => {
         </Box>
 
         <Box className="login-promo">
-          <Box sx={{ marginLeft: "120px", display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px',marginBottom:"30px" }}>
             <Typography sx={{ color: '#937ab7', fontWeight: '500', letterSpacing: '2px' }} variant="h6">
               YOUR WORK. CONNECTED.
             </Typography>

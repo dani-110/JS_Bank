@@ -59,6 +59,7 @@ const DataGrid = (props) => {
         verifyParam={verifyParam}
         isLoading={isLoading}
         count={getbillpaymentlistTotalcount}
+        tableDescription="Bill Payment records"
         fetchList={fetchList}
         tableHeading={tableHeading}
     />
@@ -70,7 +71,7 @@ const TableAction = (data) => {
     const item = data.id
     const [openView, setOpenView] = React.useState(false);
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex',justifyContent:"center"}}>
             <ViewModal open={openView} setOpen={setOpenView} tooltip={'TRANSACTION DETAILS'} type={'View'}>
                 <BillPaymentView data={item} />
             </ViewModal>

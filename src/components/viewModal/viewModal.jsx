@@ -16,7 +16,7 @@ const style = {
 };
 
 const ViewModal = (props) => {
-    const { children, heading, showError, setShowError, open, setOpen, tooltip, title, type, fill, createLabel, disabled, buttonColor, isNotScrollable } = props
+    const { children, heading, showError, setShowError, open, setOpen, tooltip,img, title, type, fill, createLabel, disabled, buttonColor, isNotScrollable,panelWidth } = props
     const theme = useTheme()
     const breadCrumCtxt = useContext(BreadCrumSelectorContext)
     const handleOpen = () => {
@@ -49,6 +49,7 @@ const ViewModal = (props) => {
                             <Box onClick={handleOpen} disabled={disabled} sx={{ border: '1px solid #d7dfea', borderRadius: '8px', padding: '7px', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: disabled ? 0.4 : 1 }}>
                                 {type == 'View' && <IoEyeOutline color={theme.palette.darkBaseColor} size={20} strokeWidth={3} />}
                                 {type == 'Edit' && <MdOutlineModeEditOutline color={theme.palette.darkBaseColor} size={20} />}
+                                {img && ( <img src={img} alt={tooltip || "Action"} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />)}
                             </Box>}
                         {/* <IconButton onClick={handleOpen} sx={{ width: '40px', margin: '0px auto' }} disabled={disabled}>
                             <img src={img} style={{ width: '25px', height: '25px', objectFit: 'contain', opacity: disabled ? 0.4 : 1 }} />
@@ -59,12 +60,12 @@ const ViewModal = (props) => {
             {
                 open && <Box style={{ height: '100vh', width: '100vw', background: 'rgba(0, 0, 0, 0.1)', position: 'absolute', bottom: '0px', left: '0px', zIndex: '1000', display: 'flex', flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end' }}>
 
-                    <Box style={{ ...style }}>
+                    <Box style={{ ...style,width: panelWidth ||style.width,maxWidth:"100vw"}}>
 
                         <Card style={{
                             overflow: isNotScrollable ? 'hidden' : 'auto',
                             height: '98%',
-                            padding: '5px',
+                            padding: '17px',
                             display: 'flex',
                             flexDirection: 'column'
 

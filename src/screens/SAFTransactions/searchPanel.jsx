@@ -119,8 +119,8 @@ const SearchPanel = (props) => {
 
             <Grid item xs={12}>
                 <ButtonContainer>
-                    <Button size="medium" variant="contained" color="primary" onClick={handleSubmit(submit)}>Search</Button>
-                    <Button size="medium" variant="contained" color="secondary" onClick={() => reset()}>Reset</Button>
+                    <Button size="medium" variant="contained" color="secondary" onClick={handleSubmit(submit)}>Search</Button>
+                    <Button size="medium" variant="outlined" color="secondary" onClick={() => reset()}>Reset</Button>
                 </ButtonContainer>
             </Grid>
         </Grid>

@@ -15,7 +15,7 @@ const ProcessingStatus = ({ value }) => {
             return '#fff0f0';
     };
     return (
-        <Box sx={{ textAlign: 'left' }}>
+        <Box sx={{ textAlign: 'center' }}>
             <Box sx={{
                 backgroundColor: value ? getBackgroundColor(value) : 'tansparent',
                 minHeight: '25px',

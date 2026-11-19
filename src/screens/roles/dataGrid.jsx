@@ -8,6 +8,7 @@ import create from '../../assests/create.png'
 import ButtonContainer from '../../components/buttonContainer';
 import { useSelector } from 'react-redux';
 import PermissionComp from '../../components/permissionComp/permissionComp';
+import ViewModal from '../../components/viewModal/viewModal';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, tableHeading } = props
@@ -35,10 +36,11 @@ const DataGrid = (props) => {
             count={totalcount}
             fetchList={fetchList}
             tableHeading={tableHeading}
+            tableDescription="Role records"
             addButton={<PermissionComp list={['User Management', 'Roles', 'Create']}>
-                <ModalButton open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} createLabel={'Create Role'} >
+                <ViewModal open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} heading={'USER MANAGEMENT'} >
                     <RolesUpdateForm open={openCreate} setOpen={setOpenCreate} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>}
         />
     </>
@@ -51,11 +53,11 @@ const TableAction = (data) => {
     const [openEdit, setOpenEdit] = React.useState(false);
     const item = data.id
     return (
-        <Box>
+        <Box sx={{display:"flex",justifyContent:"center"}}>
             <PermissionComp list={['User Management', 'Roles', 'Edit']}>
-                <ModalButton open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} img={edit} width={'60%'} >
+                <ViewModal open={openEdit} setOpen={setOpenEdit}  tooltip={'USER MANAGEMENT'} type={'Edit'} panelWidth="40vw">
                     <RolesUpdateForm data={item} setOpen={setOpenEdit} type={'Edit'} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>
         </Box>
     )

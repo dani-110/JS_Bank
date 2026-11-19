@@ -16,7 +16,7 @@ const Status = ({ value }) => {
             return '#617088';
     };
     return (
-        <Box sx={{ textAlign: 'left' }}>
+        <Box sx={{ textAlign: 'center' }}>
             <Box sx={{
                 backgroundColor: value ? getBackgroundColor(value) : 'tansparent',
                 minHeight: '25px',
