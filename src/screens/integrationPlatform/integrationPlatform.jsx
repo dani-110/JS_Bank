@@ -79,7 +79,7 @@ const IntegrationPlatform = () => {
         <>
             {isLoader ?
                 <SkeletonLoader />
-                : <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', padding: '10px' }}>
+                : <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', padding: '20px' }}>
                     <Card style={{ margin: '0px 0px 10px', padding: '10px' }}>
                         <Typography variant="h4" component="span" className="collapseableContainer">
                             Channel – Switch
@@ -90,7 +90,7 @@ const IntegrationPlatform = () => {
                             <SearchPanel fetchList={fetchList} />
                         </Expandable>
                     </Card>
-                    <DataGrid fetchList={fetchList} isLoading={isLoading} tableHeading={'Integration channels'} />
+                    <DataGrid fetchList={fetchList} isLoading={isLoading} tableHeading={'Switch channels'} />
                 </Box>
             }
         </>

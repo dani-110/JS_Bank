@@ -45,6 +45,7 @@ const DataGrid = (props) => {
         verifyParam={verifyParam}
         isLoading={isLoading}
         count={switchChannelTotalcount}
+        tableDescription="Switch Channel record"
         fetchList={fetchList}
         tableHeading={tableHeading}
     />
@@ -122,11 +123,12 @@ const TableAction = (data) => {
             </ModalButton>
             {/* <Tooltip title={'Send Sign In'}>
                 <IconButton onClick={() => { sendSignInOut('1', 'Send Sign In') }} sx={{ width: '40px', margin: '0px auto' }}>
+
                     <img src={signin} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
                 </IconButton>
             </Tooltip>
             <Tooltip title={'Send Sign Off'}>
-                <IconButton onClick={() => { sendSignInOut('2', 'Send Sign Off') }} sx={{ width: '40px', margin: '0px auto' }}>
+                <IconButton onClick={() => { sendSignInOut('2', 'Send Sign Off') }} sx={{ width: '40px'}}>
                     <img src={signout} style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
                 </IconButton>
             </Tooltip> */}

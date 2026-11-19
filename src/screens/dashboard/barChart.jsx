@@ -36,12 +36,13 @@ const BarChart = ({ data }) => {
         labels: {
           style: {
             colors: theme.palette.textColor,
-            fontSize: '6px',
+            fontSize: '9px',
           }
         }
       },
       yaxis: {
         labels: {
+          offsetX: -9,
           style: {
             colors: theme.palette.textColor,
           }

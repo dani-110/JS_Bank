@@ -117,7 +117,7 @@ const Dashboard = () => {
                 <Box sx={{ display: 'flex', gap: '10px', }}>
                     <Card classes="detailCard">
                         <Typography variant="h4">Product Wise Merchant Distribution</Typography>
-                        <Typography variant="body2">Sample product breakdown</Typography>
+                        <Typography variant="body2">Product breakdown</Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             {productWiseMerchantMISCustomList?.length > 0 ?
                                 <DonutChart data={productWiseMerchantMISCustomList} />
@@ -128,7 +128,7 @@ const Dashboard = () => {
                     </Card>
                     <Card classes="detailCard">
                         <Typography variant="h4">Product Wise Consumer Distribution</Typography>
-                        <Typography variant="body2">Sample product breakdown</Typography>
+                        <Typography variant="body2">Product breakdown</Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             {productWiseConsumerMISCustomList?.length > 0 ?
                                 <PieChart data={productWiseConsumerMISCustomList} />

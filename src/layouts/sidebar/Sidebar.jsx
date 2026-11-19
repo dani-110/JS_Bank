@@ -16,11 +16,14 @@ import { LuUsers } from "react-icons/lu";
 import { LuChartColumn } from "react-icons/lu";
 import { LuLogOut } from "react-icons/lu";
 import { AiOutlineHome } from "react-icons/ai";
+import { logout } from '../../store/actions/auth';
+import { useDispatch } from "react-redux";
 // import Logo from '../../assests/logo-no-background.png'
 
 const Sidebar = (props) => {
   const { fixed, sideMenu, menuToggleHandler, type, sideMenuToggle, menuToggle } = props
   const theme = useTheme()
+  const dispatch= useDispatch();
   const {
     user,
   } = useSelector((state) => state.auth);
@@ -86,6 +89,14 @@ const Sidebar = (props) => {
     }
     navigate(url.url);
   };
+   const logoutAction = () => {
+          let obj = {
+              "username": user?.username,
+              "sessionid": user?.sessionId,
+              "audittrace": 'Qubits|Admin Panel|Logout'
+          }
+          dispatch(logout(obj))
+      }
 
 
   const renderIcon = (iconName, isSelected, size) => {
@@ -171,7 +182,7 @@ const Sidebar = (props) => {
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '10px' }}>
         <Typography variant="body2" sx={{ color: '#b5bfd1', letterSpacing: '1.8px', marginBottom: '5px' }}>WORKSPACE</Typography>
         <Typography variant="body1" sx={{ color: '#b5bfd1' }}>Qubits Portal</Typography>
-        <input className="searchInput" placeholder="Fine a menu..." onChange={txt => setSearch(txt.target.value)} />
+        <input className="searchInput" placeholder="Find a menu..." onChange={txt => setSearch(txt.target.value)} />
       </Box>
 
       <Box onClick={() => handleExpandClick('Home Dashboard')} className={'navMainText'} sx={{ backgroundColor: expanded === 'Home Dashboard' ? theme.palette.darkBaseColor : 'transparent' }}>
@@ -309,7 +320,7 @@ const Sidebar = (props) => {
           )
         })
       }
-      <Box style={{ display: 'flex', displayDirection: 'row', alignItems: 'center', padding: '20px 0px 0px', borderTop: '1px solid #ffffff20' }}>
+      <Box onClick={logoutAction} style={{ display: 'flex', displayDirection: 'row', alignItems: 'center', padding: '20px 0px 0px', borderTop: '1px solid #ffffff20',cursor:"pointer" }}>
         {
           !sideMenuToggle ? (<Tooltip title={'Logout'}>
             {renderIcon('LuLogOut', false, 20)}

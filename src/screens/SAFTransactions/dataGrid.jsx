@@ -65,6 +65,7 @@ const DataGrid = (props) => {
         count={safTransactionsTotalcount}
         fetchList={fetchList}
         tableHeading={tableHeading}
+        tableDescription="IBFT records"
     />
 }
 export default DataGrid;
@@ -106,6 +107,7 @@ const TableAction = (data) => {
     }
     return (
         <Box sx={{ display: 'flex', gap: '5px' }}>
+
             {/* <ModalButton open={openView} setOpen={setOpenView} tooltip={'View'} img={view}>
                 <SAFTransactionsView data={item} />
             </ModalButton> */}
