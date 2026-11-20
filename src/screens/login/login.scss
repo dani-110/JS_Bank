@@ -1,11 +1,10 @@
 .login-page {
+  background:
+    radial-gradient(circle at 78% 45%, #e0ebf8 0%, transparent 45%),
+    linear-gradient(115deg, #ffffff 0%, #f5f8fc 48%, #e7eff8 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  // background:
-  //   radial-gradient(circle at 78% 45%, #e0ebf8 0%, transparent 45%),
-  //   linear-gradient(115deg, #ffffff 0%, var(--login-surface) 48%, #e7eff8 100%);
-  color: var(--login-text);
   overflow-x: hidden;
 
   .login-header {
@@ -30,12 +29,12 @@
 
   .login-header-text {
     font-size: 13px;
-    color: var(--login-muted);
+    color: #8793a5;
   }
 
   .login-contact-button {
     text-transform: none;
-    color: var(--login-primary);
+    color: #2864a5;
     font-size: 13px;
     font-weight: 600;
     border-radius: 8px;
@@ -69,22 +68,22 @@
     font-weight: 700;
     letter-spacing: 2.2px;
     margin-bottom: 2px;
-    color: var(--login-accent);
+    color: #937ab7;
   }
 
   .login-heading {
     font-size: 39px;
     font-weight: 750;
-    line-height: 2.00;
+    line-height: 2;
     letter-spacing: -1.3px;
-    color: var(--login-text);
+    color: #203047;
     margin-bottom: 10px;
   }
 
   .login-description {
     font-size: 15px;
     margin-bottom: 32px;
-    color:var(--login-accent);
+    color: #937ab7;
   }
 
   .login-form {
@@ -110,24 +109,28 @@
       font-size: 13px;
 
       fieldset {
-      border-color: var(--login-border);
+        border-color: #d7e0ed;
       }
 
       &:hover fieldset {
-      border-color: color-mix(in srgb, var(--login-primary) 55%, white);
+        border-color: color-mix(in srgb, #2864a5 55%, white);
       }
+      .MuiInputBase-input {
+        padding: 22px 8px;
 
-      &.Mui-focused fieldset {
-      border-color: var(--login-primary);
-      }
-    }
-
-    .MuiInputBase-input {
-      padding: 22px 8px;
-
-      &::-ms-reveal,
-      &::-ms-clear {
-        display: none;
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.85) inset !important;
+          -webkit-text-fill-color: #203047 !important;
+          // caret-color: #203047;
+          transition: background-color 9999s ease-in-out 0s;
+        }
+        &::-ms-reveal,
+        &::-ms-clear {
+          display: none;
+        }
       }
     }
 
@@ -136,7 +139,7 @@
       visibility: visible;
       opacity: 1;
       margin-right: 8px;
-      color: var(--login-muted);
+      color: #8793a5;
     }
 
     & .MuiInputAdornment-root svg {
@@ -186,7 +189,7 @@
     padding: 7px;
 
     &.Mui-checked {
-      color: var(--login-primary);
+      color: #2864a5;
     }
   }
 
@@ -196,7 +199,7 @@
     text-transform: none;
     font-size: 13px;
     font-weight: 600;
-    color: var(--login-primary);
+    color: #2864a5;
   }
 
   .login-submit {
@@ -210,8 +213,8 @@
     box-shadow: 0 8px 18px rgba(40, 100, 165, 0.19);
 
     &:hover {
-  filter: brightness(1.06);
-  transform: translateY(-1px);
+      filter: brightness(1.06);
+      transform: translateY(-1px);
     }
   }
 
@@ -226,14 +229,14 @@
 
   .login-security {
     font-size: 12px;
-    color: var(--login-muted);
+    color: #8793a5;
   }
 
   .login-back {
     align-self: center;
     text-transform: none;
     font-size: 12px;
-    color: var(--login-primary);
+    color: #2864a5;
     margin-top: -8px;
   }
 
@@ -251,7 +254,7 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2.2px;
-    color:var(--login-accent);
+    color: #937ab7;
     margin-bottom: 14px;
   }
 
@@ -260,19 +263,19 @@
     font-weight: 550;
     line-height: 1.35;
     letter-spacing: -1px;
-    color: var(--login-text);
+    color: #203047;
     margin-bottom: 12px;
 
     span {
       display: block;
-      color: var(--login-primary);
+      color: #2864a5;
     }
   }
 
   .promo-description {
     font-size: 13px;
     margin-bottom: 32px;
-    color:var(--login-accent);
+    color: #937ab7;
   }
 
   .promo-image-wrapper {
@@ -313,7 +316,7 @@
 
   .promo-feature-label {
     font-size: 10px;
-    color: var(--login-accent);
+    color: #937ab7;
   }
 
   .login-footer {
@@ -327,7 +330,7 @@
 
     p {
       font-size: 10px;
-      color: var(--login-muted);
+      color: #8793a5;
     }
   }
 }
@@ -406,4 +409,3 @@
     }
   }
 }
-

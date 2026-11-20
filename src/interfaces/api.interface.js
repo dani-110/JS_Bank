@@ -1,15 +1,15 @@
 //testing
-export const apiURL = "http://192.168.15.35:8742/api/middleware";
-export const apiURL2 = "http://192.168.15.35:8743/api/middleware/switch";
-export const apiURL3 = "http://192.168.15.35:8744/api/integrationplatformmw";
+// export const apiURL = "http://192.168.15.35:8742/api/middleware";
+// export const apiURL2 = "http://192.168.15.35:8743/api/middleware/switch";
+// export const apiURL3 = "http://192.168.15.35:8744/api/integrationplatformmw";
 //production
 // export const apiURL = "https://mmsad.keenu.pk/api/middleware";
 // export const apiURL2 = "https://mmsipdb.keenu.pk/api/middleware/switch";
 // export const apiURL3 = " https://mmsip.keenu.pk/api/integrationplatformmw";
 //SITE
-// export const apiURL = "https://mmsuatauth.keenu.pk/api/middleware"; 
-// export const apiURL2 = "https://mmsuatip.keenu.pk/api/middleware/switch";
-// export const apiURL3 = "https://mmsuatipdb.keenu.pk/api/integrationplatformmw";
+export const apiURL = "https://mmsuatauth.keenu.pk/api/middleware"; 
+export const apiURL2 = "https://mmsuatip.keenu.pk/api/middleware/switch";
+export const apiURL3 = "https://mmsuatipdb.keenu.pk/api/integrationplatformmw";
 
 // import { loadConfig } from './configLoader';
 // const config = await loadConfig();

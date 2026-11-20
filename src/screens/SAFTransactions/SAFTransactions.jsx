@@ -69,7 +69,7 @@ const SAFTransactions = () => {
         <>
             {isLoader ?
                 <SkeletonLoader />
-                : <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', padding: '10px' }}>
+                : <Box sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', padding: '20px' }}>
                     <Card style={{ margin: '0px 0px 10px', padding: '10px' }}>
                         <Typography variant="h4" component="span" className="collapseableContainer">
                             1Link – IBFT

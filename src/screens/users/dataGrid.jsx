@@ -76,10 +76,11 @@ const DataGrid = (props) => {
             count={totalcount}
             fetchList={fetchList}
             tableHeading={tableHeading}
+            tableDescription="Users record"
             addButton={<PermissionComp list={['User Management', 'Users', 'Create']}>
-                <ModalButton open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} img={create} createLabel={'Add New User'}>
+                <ViewModal open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} heading={'USER MANAGEMENT'}>
                     <UsersUpdateForm open={openCreate} setOpen={setOpenCreate} type={'Create'} />
-                </ModalButton>
+               </ViewModal>
             </PermissionComp>}
         />
     </>
@@ -119,7 +120,7 @@ const TableAction = (data) => {
         })
     }
     return (
-        <Box sx={{ display: 'flex', gap: '5px' }}>
+        <Box sx={{ display: 'flex', gap: '5px',justifyContent:"center"}}>
             <PermissionComp list={['User Management', 'Users', 'Edit']}>
                 <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'USER MANAGEMENT'} type={'Edit'}>
                     <UsersUpdateForm data={item} setOpen={setOpenEdit} type={'Edit'} />
@@ -133,7 +134,9 @@ const TableAction = (data) => {
             </PermissionComp>
 
             <PermissionComp list={['User Management', 'Users', 'Change Password']}>
+
                 <ViewModal open={openPassword} setOpen={setOpenPassword} tooltip={'Change Password'} img={<AiOutlineKey color={theme.palette.darkBaseColor} size={20} />}>
+
                     <ChangePassword data={item} setOpen={setOpenPassword} />
                 </ViewModal>
             </PermissionComp>

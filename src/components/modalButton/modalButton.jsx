@@ -64,6 +64,7 @@ const ModalButton = (props) => {
                         <Card style={{
                             overflow: isNotScrollable ? 'hidden' : 'auto',
                             padding: '20px',
+
                             ...(height
                                 ? { height }
                                 : { maxHeight: '85vh' }

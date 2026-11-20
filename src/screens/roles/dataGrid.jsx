@@ -36,10 +36,11 @@ const DataGrid = (props) => {
             count={totalcount}
             fetchList={fetchList}
             tableHeading={tableHeading}
+            tableDescription="Role records"
             addButton={<PermissionComp list={['User Management', 'Roles', 'Create']}>
-                <ModalButton open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} createLabel={'Create Role'} >
+                <ViewModal open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} heading={'USER MANAGEMENT'} >
                     <RolesUpdateForm open={openCreate} setOpen={setOpenCreate} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>}
         />
     </>
@@ -52,7 +53,7 @@ const TableAction = (data) => {
     const [openEdit, setOpenEdit] = React.useState(false);
     const item = data.id
     return (
-        <Box>
+        <Box sx={{display:"flex",justifyContent:"center"}}>
             <PermissionComp list={['User Management', 'Roles', 'Edit']}>
                 <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} width={'60%'} type={'Edit'} >
                     <RolesUpdateForm data={item} setOpen={setOpenEdit} type={'Edit'} />
