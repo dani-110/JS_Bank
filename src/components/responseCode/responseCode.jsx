@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 const ResponseCode = ({ value }) => {
     console.log(value)
     return (
-        <Box sx={{ textAlign: 'center' }}>
+        <Box sx={{ textAlign: 'left' }}>
             <Box sx={{
                 // backgroundColor: value ? value == 'Success' ? 'rgb(230, 255, 250)' : '#ffd9d0' : 'tansparent',
                 backgroundColor: value ? value == '0 Success' ? '#e1f1e8' : '##fff0f0' : 'tansparent',
