@@ -23,7 +23,6 @@
     width: 100%;
   }
 
-
   &.show {
     left: 0%;
   }
@@ -68,7 +67,6 @@
       width: 25px;
       object-fit: contain;
     }
-
   }
 
   .logoContainer {
@@ -104,9 +102,7 @@
           color: #fff;
           border-left: 1px solid #ffffff40;
           padding: 0px 5px;
-
         }
-
 
         &.active {
           .navText {
@@ -118,24 +114,46 @@
             background-color: #ffffff15;
             font-weight: 500;
           }
-
-
-
         }
       }
 
       &:has(a.active)::marker {
         color: #fff;
-        ;
       }
     }
+  }
+  .sidebarDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
   }
 
   &.small {
     padding: 5px;
+    width: 55px;
+    min-width: 55px;
+
+    .navMainText {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px;
+      min-height: 35px;
+
+      img {
+        width: 25px;
+        height: 25px;
+        object-fit: contain;
+        margin: 0;
+      }
+    }
+    .sidebarDescription {
+      display: none;
+    }
 
     .menuList {
-      padding-left: 10px;
+      padding-left: 5px;
 
       li {
         a {
@@ -145,6 +163,7 @@
 
           img {
             width: 25px;
+            height: 25px;
             margin: 0px;
           }
 
@@ -153,16 +172,13 @@
             padding: 5px;
 
             img {
-              width: 25px
+              width: 15px;
             }
           }
-
         }
       }
-
     }
   }
-
 }
 
 .sidebar::-webkit-scrollbar {

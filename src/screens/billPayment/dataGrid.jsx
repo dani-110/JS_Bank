@@ -73,7 +73,7 @@ const TableAction = (data) => {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
 
-            <ViewModal open={openView} setOpen={setOpenView} tooltip={'TRANSACTION DETAILS'} type={'View'}>
+            <ViewModal open={openView} setOpen={setOpenView} tooltip={'View'} heading={'TRANSACTION DETAILS'} type={'View'}>
                 <BillPaymentView data={item} />
             </ViewModal>
         </Box>

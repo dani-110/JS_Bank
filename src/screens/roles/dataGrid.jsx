@@ -55,7 +55,7 @@ const TableAction = (data) => {
     return (
         <Box sx={{display:"flex",justifyContent:"center"}}>
             <PermissionComp list={['User Management', 'Roles', 'Edit']}>
-                <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} width={'60%'} type={'Edit'} >
+                <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} heading={'USER MANAGEMENT'} width={'60%'} type={'Edit'} >
                     <RolesUpdateForm data={item} setOpen={setOpenEdit} type={'Edit'} />
                 </ViewModal>
             </PermissionComp>

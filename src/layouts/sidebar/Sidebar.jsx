@@ -57,6 +57,7 @@ const Sidebar = (props) => {
 
   const handleExpandClick = (key) => {
     console.log(key)
+    if (!sideMenuToggle) menuToggleHandler();
     if (key == 'Home Dashboard') {
       setExpanded('Home Dashboard')
       navigate('dashboard')
@@ -84,6 +85,7 @@ const Sidebar = (props) => {
 
   };
   const handleClick = (e, url) => {
+    if (!sideMenuToggle) menuToggleHandler();
     if (url?.url?.split('/').length == 2) {
       setSubMenuExpanded('')
     }
@@ -179,7 +181,7 @@ const Sidebar = (props) => {
           <IoMdClose color="#fff" />
         </IconButton>}
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '10px' }}>
+      <Box className="sidebarDescription">
         <Typography variant="body2" sx={{ color: '#b5bfd1', letterSpacing: '1.8px', marginBottom: '5px' }}>WORKSPACE</Typography>
         <Typography variant="body1" sx={{ color: '#b5bfd1' }}>Qubits Portal</Typography>
         <input className="searchInput" placeholder="Find a menu..." onChange={txt => setSearch(txt.target.value)} />
@@ -320,7 +322,7 @@ const Sidebar = (props) => {
           )
         })
       }
-      <Box onClick={logoutAction} style={{ display: 'flex', displayDirection: 'row', alignItems: 'center', padding: '20px 0px 0px', borderTop: '1px solid #ffffff20',cursor:"pointer" }}>
+      <Box onClick={logoutAction} style={{ display: 'flex', displayDirection: 'row', alignItems: 'center', padding: '20px 5px 0px', borderTop: '1px solid #ffffff20',cursor:"pointer" }}>
         {
           !sideMenuToggle ? (<Tooltip title={'Logout'}>
             {renderIcon('LuLogOut', false, 20)}
