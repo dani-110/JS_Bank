@@ -1,18 +1,18 @@
 .searchPermissionBar {
-  width: 60%;
+  width: 100%;
   padding: 0px 0px;
   display: flex;
   align-items: center;
   border-radius: 10px;
   justify-content: space-between;
-  background: rgb(237, 231, 246);
+  background: #eee8fa;
   margin: 2px 0px 0px;
 
   .collapseableContainer {
     padding: 6px 10px;
     text-transform: uppercase;
     text-align: left;
-    color: #5f1ce3;
+    color: #26334a;
 
   }
 
@@ -23,17 +23,49 @@
 }
 
 .toggleContainerBar {
-  width: 60%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background:#fff;
+  border-radius: 10px;
+  border:1px solid #d7dfea;
+  margin: 5px 0px;
+}
+.permissionTreeHeader {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 10px;
-  margin: 5px 0px;
+  padding: 8px 10px;
+  background:#edf1f7
+}
+
+.permissionTreeActions {
+  display: flex;
+  gap: 8px;
+}
+.permissionTree {
+  .MuiCheckbox-root {
+    padding: 6px;
+    
+
+    &.Mui-checked {
+      color: #8253da;
+    }
+
+    &:hover {
+      background-color: rgba(126, 87, 194, 0.08);
+    }
+  }
 }
 
 .childPermissionContainer {
   padding: 5px;
   margin-left: 50px;
+  background-color: #fff;
+  border: 1px solid #d7dce5;
   // max-height: 30vh;
   // overflow: auto;
   // padding: 5px;

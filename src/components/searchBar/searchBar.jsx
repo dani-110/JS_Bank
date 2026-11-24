@@ -10,10 +10,10 @@ import { useTheme } from '@emotion/react';
 
 export default function SearchBar(props) {
     const theme = useTheme();
-    const { placeholder, handleChange } = props
+    const { placeholder, handleChange, className=""} = props
 
     return (
-        <Box className="searchBarContainer">
+        <Box className={`searchBarContainer ${className}`}>
             <Input style={{width:'70%', margin:'0px 10px'}} placeholder={placeholder} disableUnderline onChange={(e) => handleChange(e.target.value)} />
             <Box className='iconContainer' style={{background:theme.palette.secondary.main}}>
                 <IoIosSearch color='#fff' size={18} />
