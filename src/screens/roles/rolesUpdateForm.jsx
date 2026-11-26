@@ -19,7 +19,7 @@ import { alphanumericRegex, setDataObject } from "../../utils/Utils";
 import { useDispatch } from "react-redux";
 import { createrole } from "../../store/actions/roles";
 import { BreadCrumSelectorContext } from "../../store/context/breadCrumSelector";
-import MultiSelectFields from "../../components/MultiSelectFields";
+import SelectFields from "../../components/SelectFields";
 import SearchBar from "../../components/searchBar/searchBar";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
@@ -32,6 +32,7 @@ const RolesUpdateForm = (props) => {
   const [assignedSearch, setAssignedSearch] = useState("");
   const [moduleSearch, setModuleSearch] = useState("");
   const [reviewSelected, setReviewSelected] = useState(false);
+  const [customTemplate, setCustomTemplate] = useState("");
   const breadCrumCtxt = useContext(BreadCrumSelectorContext);
   const defaultValues = useForm({
     defaultValues: {
@@ -122,7 +123,7 @@ const RolesUpdateForm = (props) => {
             </Grid>
 
             <Grid item xs={7}>
-              <MultiSelectFields
+              <SelectFields
                 fieldName="template"
                 label="Select Template"
                 control={control}
@@ -130,6 +131,7 @@ const RolesUpdateForm = (props) => {
                   return { label: displayvalue, value: codevalue };
                 })}
                 error={errors?.template}
+                onChangeValue={(value) => setCustomTemplate(value)}
               />
             </Grid>
           </Box>
@@ -320,6 +322,7 @@ const RolesUpdateForm = (props) => {
                   onSelectionChange={setSelectedAccess}
                   selectedPermission={reviewSelected}
                   search={moduleSearch}
+                  selectedCustomTemplate={customTemplate}
                 />
               )}
             </Box>
@@ -357,12 +360,8 @@ const RolesUpdateForm = (props) => {
                 size="medium"
                 variant="outlined"
                 color="secondary"
-                onClick={async () => {
-                  reset();
-
-                  for (const item of selectedAccess) {
-                    await item.remove();
-                  }
+                onClick={() => {
+                  setCustomTemplate("NO_ACCESS");
                 }}
               >
                 Clear All

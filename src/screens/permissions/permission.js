@@ -16,7 +16,7 @@ import { BreadCrumSelectorContext } from "../../store/context/breadCrumSelector"
 import ButtonContainer from "../../components/buttonContainer";
 
 const Permissions = (props) => {
-  const { role, onSelectionChange, selectedPermission, search } = props;
+  const { role, onSelectionChange, selectedPermission, search, selectedCustomTemplate,} = props;
   console.log(role);
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -116,7 +116,46 @@ const Permissions = (props) => {
         }
       });
     }
-  }, [dispatch, role?.id]);
+  }, [dispatch, role?.rid]);
+
+  const applyTemplate = (nodes, template) => {
+  return nodes.map((node) => {
+    const children = node.Children
+      ? applyTemplate(node.Children, template)
+      : [];
+
+    let isEnabled = node.ISENABLE;
+
+    if (children.length === 0 && node.PERID !== 0) {
+      if (template === "FULL_ACCESS") {
+        isEnabled = 1;
+      } else if (template === "NO_ACCESS") {
+        isEnabled = 0;
+      } else if (template === "READ_ONLY") {
+        isEnabled = node.PAGEPERMISSION?.toLowerCase().includes("view")
+          ? 1
+          : 0;
+      }
+    }
+
+    return {
+      ...node,
+      ISENABLE: children.length
+        ? children.every((child) => child.ISENABLE === 1)
+          ? 1
+          : 0
+        : isEnabled,
+      ...(node.Children ? { Children: children } : {}),
+    };
+  });
+};
+useEffect(() => {
+  if (!selectedCustomTemplate || selectedCustomTemplate === "CUSTOM") return;
+
+  setPermissionObj((prev) =>
+    applyTemplate(prev, selectedCustomTemplate)
+  );
+}, [selectedCustomTemplate]);
 
   const onChange = (key, val, title) => {
     console.log(title);
