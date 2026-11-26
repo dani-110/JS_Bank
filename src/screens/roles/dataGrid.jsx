@@ -37,9 +37,9 @@ const DataGrid = (props) => {
             fetchList={fetchList}
             tableHeading={tableHeading}
             addButton={<PermissionComp list={['User Management', 'Roles', 'Create']}>
-                <ModalButton open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} createLabel={'Create Role'} >
+                <ViewModal open={openCreate} setOpen={setOpenCreate} tooltip={'Create'} width={'60%'} heading={'USER MANAGEMENT'} >
                     <RolesUpdateForm open={openCreate} setOpen={setOpenCreate} />
-                </ModalButton>
+                </ViewModal>
             </PermissionComp>}
         />
     </>
@@ -54,7 +54,7 @@ const TableAction = (data) => {
     return (
         <Box>
             <PermissionComp list={['User Management', 'Roles', 'Edit']}>
-                <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'Edit'} width={'60%'} type={'Edit'} >
+                <ViewModal open={openEdit} setOpen={setOpenEdit} tooltip={'Edit role & permissions'} heading={'USER MANAGEMENT'} width={'70%'} type={'Edit'} >
                     <RolesUpdateForm data={item} setOpen={setOpenEdit} type={'Edit'} />
                 </ViewModal>
             </PermissionComp>

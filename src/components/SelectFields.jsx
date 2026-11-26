@@ -138,7 +138,7 @@ const SelectFields = ({
         const updateValue = (data) => {
           onChange(data ? String(data.value) : "")
           if (onChangeValue) {
-            onChangeValue()
+           onChangeValue(data ? String(data.value) : "");
           }
         }
         return (

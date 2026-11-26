@@ -1,17 +1,17 @@
 .searchChildPermissionBar {
-  width: 60%;
+  width: 100%;
   padding: 0px 0px;
   display: flex;
   align-items: center;
   border-radius: 10px;
-  justify-content: space-between;
+  // justify-content: space-between;
   background: rgb(237, 231, 246);
   margin: 5px 0px 0px;
 
   .collapseableContainer {
     padding: 6px 10px;
     text-transform: uppercase;
-    color: #5f1ce3;
+    color: #26334a;
 
   }
 
